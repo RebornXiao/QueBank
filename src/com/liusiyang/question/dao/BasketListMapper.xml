@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liusiyang.question.dao.BasketListMapper">
+	<resultMap id="BaseResultMap" type="com.liusiyang.question.entity.BasketList">
+		<id column="basket_list_id" jdbcType="INTEGER" property="basketListId" />
+		<result column="filling_no" jdbcType="VARCHAR" property="fillingNo" />
+		<result column="choose_no" jdbcType="VARCHAR" property="chooseNo" />
+		<result column="explain_no" jdbcType="VARCHAR" property="explainNo" />
+		<result column="question_numbers" jdbcType="INTEGER" property="questionNumbers" />
+	</resultMap>
+
+	<select id="select" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select * from t_basket_list
+		where basket_list_id =
+		#{basketListId,jdbcType=INTEGER}
+	</select>
+
+	<insert id="insert" parameterType="com.liusiyang.question.entity.BasketList">
+		insert into t_basket_list (
+		filling_no, choose_no, explain_no,question_numbers)
+		values
+		(
+		#{fillingNo,jdbcType=VARCHAR},
+		#{chooseNo,jdbcType=VARCHAR},
+		#{explainNo,jdbcType=VARCHAR},
+		#{questionNumbers,jdbcType=INTEGER}
+		)
+	</insert>
+
+	<!-- 通过关键字分页查询, 返回数据集 -->
+	<select id="selectPageList" parameterType="page" resultMap="BaseResultMap">
+		select * from t_basket_list
+		limit
+		#{start},#{rows}
+	</select>
+
+	<!-- 通过关键字分页查询，返回总记录数 -->
+	<select id="selectPageCount" parameterType="page" resultType="Integer">
+		select count(1) from t_basket_list
+	</select>
+
+</mapper>

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liusiyang.question.dao.QuestionContentMapper">
+	<resultMap id="questionResultMap" type="com.liusiyang.question.entity.QuestionContent">
+		<id column="question_id" jdbcType="INTEGER" property="questionId" />
+		<result column="question_text" jdbcType="VARCHAR" property="questionText" />
+		<result column="question_answer" jdbcType="VARCHAR" property="questionAnswer" />
+		<result column="question_level_id" jdbcType="INTEGER" property="questionLevelId" />
+		<result column="question_type_id" jdbcType="INTEGER" property="questionTypeId" />
+		<result column="question_grade_id" jdbcType="INTEGER" property="questionGradeId" />
+		<result column="question_chapter_id" jdbcType="INTEGER"
+			property="questionChapterId" />
+		<result column="question_emphasis_id" jdbcType="INTEGER"
+			property="questionEmphasisId" />
+		<result column="question_version_id" jdbcType="INTEGER"
+			property="questionVersionId" />
+		<result column="question_level_text" jdbcType="VARCHAR"
+			property="questionLevelText" />
+		<result column="question_type_text" jdbcType="VARCHAR"
+			property="questionTypeText" />
+		<result column="question_grade_text" jdbcType="VARCHAR"
+			property="questionGradeText" />
+		<result column="question_chapter_text" jdbcType="VARCHAR"
+			property="questionChapterText" />
+		<result column="question_emphasis_text" jdbcType="VARCHAR"
+			property="questionEmphasisText" />
+		<result column="question_version_text" jdbcType="VARCHAR"
+			property="questionVersionText" />
+	</resultMap>
+
+	<insert id="insert" parameterType="com.liusiyang.question.entity.QuestionContent">
+		insert into t_question_content
+		( question_text, question_answer,
+		question_level_id,
+		question_type_id,
+		question_grade_id,
+		question_chapter_id,
+		question_emphasis_id,
+		question_version_id, question_level_text,
+		question_type_text,
+		question_grade_text, question_chapter_text,
+		question_emphasis_text,
+		question_version_text
+		)
+		values
+		( #{questionText,jdbcType=VARCHAR},
+		#{questionAnswer,jdbcType=VARCHAR},
+		#{questionLevelId,jdbcType=INTEGER},
+		#{questionTypeId,jdbcType=INTEGER},
+		#{questionGradeId,jdbcType=INTEGER},
+		#{questionChapterId,jdbcType=INTEGER},
+		#{questionEmphasisId,jdbcType=INTEGER},
+		#{questionVersionId,jdbcType=INTEGER},
+		#{questionLevelText,jdbcType=VARCHAR},
+		#{questionTypeText,jdbcType=VARCHAR},
+		#{questionGradeText,jdbcType=VARCHAR},
+		#{questionChapterText,jdbcType=VARCHAR},
+		#{questionEmphasisText,jdbcType=VARCHAR},
+		#{questionVersionText,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.liusiyang.question.entity.QuestionContent">
+		update t_question_content set
+		question_text#{questionText,jdbcType=VARCHAR},
+		question_answer=#{questionAnswer,jdbcType=VARCHAR},
+		question_level_id=#{questionLevelId,jdbcType=INTEGER},
+		question_type_id=#{questionTypeId,jdbcType=INTEGER},
+		question_grade_id=#{questionGradeId,jdbcType=INTEGER},
+		question_chapter_id=#{questionChapterId,jdbcType=INTEGER},
+		question_emphasis_id=#{questionEmphasisId,jdbcType=INTEGER},
+		question_version_id=#{questionVersionId,jdbcType=INTEGER},
+		question_level_text=#{questionLevelText,jdbcType=VARCHAR},
+		question_type_text=#{questionTypeText,jdbcType=VARCHAR},
+		question_grade_text= #{questionGradeText,jdbcType=VARCHAR},
+		question_chapter_text= #{questionChapterText,jdbcType=VARCHAR},
+		question_emphasis_text= #{questionEmphasisText,jdbcType=VARCHAR},
+		question_version_text = #{questionVersionText,jdbcType=VARCHAR}
+		where
+		question_id = #{questionId,jdbcType=INTEGER}
+	</update>
+
+	<select id="selectById" resultMap="questionResultMap"
+		parameterType="java.lang.Integer">
+		select * from t_question_content
+		where question_id =
+		#{questionId,jdbcType=INTEGER}
+	</select>
+
+	<!-- 通过关键字分页查询, 返回数据集 -->
+	<select id="selectCount" resultType="Integer">
+		select count(1) from
+		t_question_content
+	</select>
+
+	<!-- 通过关键字分页查询, 返回数据集 -->
+	<select id="selectPageList" parameterType="page" resultMap="questionResultMap">
+		select * from t_question_content
+		limit
+		#{start},#{rows}
+	</select>
+
+
+	<!-- 通过关键字分页查询，返回总记录数 -->
+	<select id="selectPageCount" parameterType="page" resultType="Integer">
+		select count(1) from t_question_content
+	</select>
+
+
+	<!-- 通过多条件分页查询，返回数据集 -->
+	<select id="selectPageListUseDyc" parameterType="page"
+		resultMap="questionResultMap">
+		select * from t_question_content
+		limit #{start},#{rows}
+	</select>
+	<!-- 通过多条件分页查询，返回总记录数 -->
+	<select id="selectPageCountUseDyc" parameterType="page"
+		resultType="Integer">
+		select count(1) from t_question_content
+	</select>
+
+</mapper>

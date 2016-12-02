@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liusiyang.question.dao.BasketTempMapper">
+	<resultMap id="BaseResultMap" type="com.liusiyang.question.entity.BasketTemp">
+		<id column="basket_list_id" jdbcType="INTEGER" property="basketListId" />
+		<result column="filling_no" jdbcType="VARCHAR" property="fillingNo" />
+		<result column="choose_no" jdbcType="VARCHAR" property="chooseNo" />
+		<result column="explain_no" jdbcType="VARCHAR" property="explainNo" />
+		<result column="question_numbers" jdbcType="INTEGER" property="questionNumbers" />
+	</resultMap>
+
+	<select id="selectById" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select * from t_basket_temp
+		where basket_list_id =
+		#{basketListId,jdbcType=INTEGER}
+	</select>
+
+	<insert id="insert" parameterType="com.liusiyang.question.entity.BasketTemp">
+		insert into t_basket_temp (
+		filling_no, choose_no, explain_no,question_numbers)
+		values
+		(
+		#{fillingNo,jdbcType=VARCHAR},
+		#{chooseNo,jdbcType=VARCHAR},
+		#{explainNo,jdbcType=VARCHAR}
+		#{questionNumbers,jdbcType=INTEGER}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.liusiyang.question.entity.BasketTemp">
+		update t_basket_temp set
+		filling_no = #{fillingNo,jdbcType=VARCHAR},
+		choose_no =
+		#{chooseNo,jdbcType=VARCHAR},
+		explain_no =
+		#{explainNo,jdbcType=VARCHAR}
+		question_numbers =
+		#{questionNumbers,jdbcType=INTEGER}
+		where basket_list_id =
+		#{basketListId,jdbcType=INTEGER}
+	</update>
+
+	<!-- 通过关键字分页查询, 返回数据集 -->
+	<select id="selectPageList" parameterType="page" resultMap="BaseResultMap">
+		select * from t_basket_temp
+		limit
+		#{start},#{rows}
+	</select>
+
+	<!-- 通过关键字分页查询，返回总记录数 -->
+	<select id="selectPageCount" parameterType="page" resultType="Integer">
+		select count(1) from t_basket_temp
+	</select>
+
+</mapper>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="QueBank"
+  id="myeclipse.1478403957789"
+  context-root="/qb"
+  j2ee-spec="5.0"
+  archive="QueBank.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+

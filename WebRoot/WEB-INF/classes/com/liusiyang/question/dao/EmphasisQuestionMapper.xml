@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liusiyang.question.dao.EmphasisQuestionMapper">
+	<resultMap id="emphasisResultMap"
+		type="com.liusiyang.question.entity.EmphasisQuestion">
+		<id column="emphasis_id" jdbcType="INTEGER" property="emphasisId" />
+		<result column="emphasis_content" jdbcType="VARCHAR" property="emphasisContent" />
+		<result column="emphasis_type" jdbcType="INTEGER" property="emphasisType" />
+		<result column="emphasis_type_text" jdbcType="VARCHAR"
+			property="emphasisTypeText" />
+	</resultMap>
+	<!-- 根据考点 -->
+	<insert id="insert" parameterType="com.liusiyang.question.entity.EmphasisQuestion">
+		insert into
+		t_emphasis_question
+		(emphasis_content, emphasis_type,
+		emphasis_type_text
+		)
+		values
+		(#{emphasisContent,jdbcType=VARCHAR},
+		#{emphasisType,jdbcType=INTEGER},
+		#{emphasisTypeText,jdbcType=VARCHAR}
+		)
+	</insert>
+	<update id="update" parameterType="com.liusiyang.question.entity.EmphasisQuestion">
+		insert into
+		t_emphasis_question
+		(emphasis_content, emphasis_type,
+		emphasis_type_text
+		)
+		values
+		(#{emphasisContent,jdbcType=VARCHAR},
+		#{emphasisType,jdbcType=INTEGER},
+		#{emphasisTypeText,jdbcType=VARCHAR}
+		)
+	</update>
+	<!-- 通过关键字分页查询, 返回数据集 -->
+	<select id="selectPageList" parameterType="page" resultMap="emphasisResultMap">
+		select * from t_emphasis_question
+		limit
+		#{start},#{rows}
+	</select>
+
+</mapper>
