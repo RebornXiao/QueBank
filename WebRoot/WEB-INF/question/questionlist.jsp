@@ -21,7 +21,7 @@
 			}, {
 				field : 'questionText',
 				title : '题目内容',
-				width : 100
+				width : 500
 			}, {
 				field : 'questionLevelText',
 				title : '难度',
@@ -57,10 +57,9 @@
 
 <body>
 
-	<table id="questiontable"></table>
-	<script type="text/javascript">
-		
-	</script>
+	<table id="questiontable" class="easyui-datagrid">
+	</table>
+
 
 </body>
 </html>

@@ -47,6 +47,16 @@
 							title="题目录入"
 							style="text-decoration: none;display: block;font-weight:bold;">题目录入</a>
 						</li>
+						<li style="padding: 6px;"><a
+							href="${proPath}/base/goURL/question/emphasisquestionlist.action"
+							title="考点选题"
+							style="text-decoration: none;display: block;font-weight:bold;">考点选题</a>
+						</li>
+						<li style="padding: 6px;"><a
+							href="${proPath}/base/goURL/question/chapterquestionlist.action"
+							title="章节选题"
+							style="text-decoration: none;display: block;font-weight:bold;">章节选题</a>
+						</li>
 					</ul>
 				</div>
 

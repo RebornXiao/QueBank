@@ -9,71 +9,179 @@ public class BasketTemp implements Serializable {
 	 */
 	private static final long serialVersionUID = -5397235746871157905L;
 
-	private Integer basketListId;
-	private Integer questionNumbers = 0;
-	private String fillingNo;
-	private String chooseNo;
-	private String explainNo;
+	private Integer questionId;
+
+	private String questionText;
+
+	private String questionAnswer;
+
+	private Integer questionLevelId;
+
+	private Integer questionTypeId;
+
+	private Integer questionGradeId;
+
+	private Integer questionChapterId;
+
+	private Integer questionEmphasisId;
+
+	private Integer questionVersionId;
+
+	private String questionLevelText;
+
+	private String questionTypeText;
+
+	private String questionGradeText;
+
+	private String questionChapterText;
+
+	private String questionEmphasisText;
+
+	private String questionVersionText;
 
 	public BasketTemp() {
 		super();
 	}
-	
-	
 
-	public Integer getQuestionNumbers() {
-		return questionNumbers;
+	public Integer getQuestionId() {
+		return questionId;
 	}
 
-
-
-	public void setQuestionNumbers(Integer questionNumbers) {
-		this.questionNumbers = questionNumbers;
+	public void setQuestionId(Integer questionId) {
+		this.questionId = questionId;
 	}
 
-
-
-	public Integer getBasketListId() {
-		return basketListId;
+	public String getQuestionText() {
+		return questionText;
 	}
 
-	public void setBasketListId(Integer basketListId) {
-		this.basketListId = basketListId;
+	public void setQuestionText(String questionText) {
+		this.questionText = questionText;
 	}
 
-	public String getFillingNo() {
-		return fillingNo;
+	public String getQuestionAnswer() {
+		return questionAnswer;
 	}
 
-	public void setFillingNo(String fillingNo) {
-		this.fillingNo = fillingNo;
+	public void setQuestionAnswer(String questionAnswer) {
+		this.questionAnswer = questionAnswer;
 	}
 
-	public String getChooseNo() {
-		return chooseNo;
+	public Integer getQuestionLevelId() {
+		return questionLevelId;
 	}
 
-	public void setChooseNo(String chooseNo) {
-		this.chooseNo = chooseNo;
+	public void setQuestionLevelId(Integer questionLevelId) {
+		this.questionLevelId = questionLevelId;
 	}
 
-	public String getExplainNo() {
-		return explainNo;
+	public Integer getQuestionTypeId() {
+		return questionTypeId;
 	}
 
-	public void setExplainNo(String explainNo) {
-		this.explainNo = explainNo;
+	public void setQuestionTypeId(Integer questionTypeId) {
+		this.questionTypeId = questionTypeId;
 	}
 
+	public Integer getQuestionGradeId() {
+		return questionGradeId;
+	}
 
+	public void setQuestionGradeId(Integer questionGradeId) {
+		this.questionGradeId = questionGradeId;
+	}
+
+	public Integer getQuestionChapterId() {
+		return questionChapterId;
+	}
+
+	public void setQuestionChapterId(Integer questionChapterId) {
+		this.questionChapterId = questionChapterId;
+	}
+
+	public Integer getQuestionEmphasisId() {
+		return questionEmphasisId;
+	}
+
+	public void setQuestionEmphasisId(Integer questionEmphasisId) {
+		this.questionEmphasisId = questionEmphasisId;
+	}
+
+	public Integer getQuestionVersionId() {
+		return questionVersionId;
+	}
+
+	public void setQuestionVersionId(Integer questionVersionId) {
+		this.questionVersionId = questionVersionId;
+	}
+
+	public String getQuestionLevelText() {
+		return questionLevelText;
+	}
+
+	public void setQuestionLevelText(String questionLevelText) {
+		this.questionLevelText = questionLevelText;
+	}
+
+	public String getQuestionTypeText() {
+		return questionTypeText;
+	}
+
+	public void setQuestionTypeText(String questionTypeText) {
+		this.questionTypeText = questionTypeText;
+	}
+
+	public String getQuestionGradeText() {
+		return questionGradeText;
+	}
+
+	public void setQuestionGradeText(String questionGradeText) {
+		this.questionGradeText = questionGradeText;
+	}
+
+	public String getQuestionChapterText() {
+		return questionChapterText;
+	}
+
+	public void setQuestionChapterText(String questionChapterText) {
+		this.questionChapterText = questionChapterText;
+	}
+
+	public String getQuestionEmphasisText() {
+		return questionEmphasisText;
+	}
+
+	public void setQuestionEmphasisText(String questionEmphasisText) {
+		this.questionEmphasisText = questionEmphasisText;
+	}
+
+	public String getQuestionVersionText() {
+		return questionVersionText;
+	}
+
+	public void setQuestionVersionText(String questionVersionText) {
+		this.questionVersionText = questionVersionText;
+	}
 
 	@Override
 	public String toString() {
-		return "BasketList [basketListId=" + basketListId
-				+ ", questionNumbers=" + questionNumbers + ", fillingNo="
-				+ fillingNo + ", chooseNo=" + chooseNo + ", explainNo="
-				+ explainNo + "]";
+		return "BasketTemp [questionId=" + questionId + ", questionText="
+				+ questionText + ", questionAnswer=" + questionAnswer
+				+ ", questionLevelId=" + questionLevelId + ", questionTypeId="
+				+ questionTypeId + ", questionGradeId=" + questionGradeId
+				+ ", questionChapterId=" + questionChapterId
+				+ ", questionEmphasisId=" + questionEmphasisId
+				+ ", questionVersionId=" + questionVersionId
+				+ ", questionLevelText=" + questionLevelText
+				+ ", questionTypeText=" + questionTypeText
+				+ ", questionGradeText=" + questionGradeText
+				+ ", questionChapterText=" + questionChapterText
+				+ ", questionEmphasisText=" + questionEmphasisText
+				+ ", questionVersionText=" + questionVersionText + "]";
 	}
+
+	
+
 
 	
 }

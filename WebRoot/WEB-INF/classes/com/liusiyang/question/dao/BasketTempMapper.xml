@@ -2,44 +2,70 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.liusiyang.question.dao.BasketTempMapper">
 	<resultMap id="BaseResultMap" type="com.liusiyang.question.entity.BasketTemp">
-		<id column="basket_list_id" jdbcType="INTEGER" property="basketListId" />
-		<result column="filling_no" jdbcType="VARCHAR" property="fillingNo" />
-		<result column="choose_no" jdbcType="VARCHAR" property="chooseNo" />
-		<result column="explain_no" jdbcType="VARCHAR" property="explainNo" />
-		<result column="question_numbers" jdbcType="INTEGER" property="questionNumbers" />
+		<id column="question_id" jdbcType="INTEGER" property="questionId" />
+		<result column="question_text" jdbcType="VARCHAR" property="questionText" />
+		<result column="question_answer" jdbcType="VARCHAR" property="questionAnswer" />
+		<result column="question_level_id" jdbcType="INTEGER" property="questionLevelId" />
+		<result column="question_type_id" jdbcType="INTEGER" property="questionTypeId" />
+		<result column="question_grade_id" jdbcType="INTEGER" property="questionGradeId" />
+		<result column="question_chapter_id" jdbcType="INTEGER"
+			property="questionChapterId" />
+		<result column="question_emphasis_id" jdbcType="INTEGER"
+			property="questionEmphasisId" />
+		<result column="question_version_id" jdbcType="INTEGER"
+			property="questionVersionId" />
+		<result column="question_level_text" jdbcType="VARCHAR"
+			property="questionLevelText" />
+		<result column="question_type_text" jdbcType="VARCHAR"
+			property="questionTypeText" />
+		<result column="question_grade_text" jdbcType="VARCHAR"
+			property="questionGradeText" />
+		<result column="question_chapter_text" jdbcType="VARCHAR"
+			property="questionChapterText" />
+		<result column="question_emphasis_text" jdbcType="VARCHAR"
+			property="questionEmphasisText" />
+		<result column="question_version_text" jdbcType="VARCHAR"
+			property="questionVersionText" />
 	</resultMap>
 
 	<select id="selectById" resultMap="BaseResultMap"
 		parameterType="java.lang.Integer">
 		select * from t_basket_temp
-		where basket_list_id =
-		#{basketListId,jdbcType=INTEGER}
+		where question_id =
+		#{questionId,jdbcType=INTEGER}
 	</select>
-
+	
 	<insert id="insert" parameterType="com.liusiyang.question.entity.BasketTemp">
-		insert into t_basket_temp (
-		filling_no, choose_no, explain_no,question_numbers)
+		insert into t_basket_temp ( question_text, question_answer,
+		question_level_id,
+		question_type_id,
+		question_grade_id,
+		question_chapter_id,
+		question_emphasis_id,
+		question_version_id, question_level_text,
+		question_type_text,
+		question_grade_text, question_chapter_text,
+		question_emphasis_text,
+		question_version_text
+		)
 		values
-		(
-		#{fillingNo,jdbcType=VARCHAR},
-		#{chooseNo,jdbcType=VARCHAR},
-		#{explainNo,jdbcType=VARCHAR}
-		#{questionNumbers,jdbcType=INTEGER}
+		( #{questionText,jdbcType=VARCHAR},
+		#{questionAnswer,jdbcType=VARCHAR},
+		#{questionLevelId,jdbcType=INTEGER},
+		#{questionTypeId,jdbcType=INTEGER},
+		#{questionGradeId,jdbcType=INTEGER},
+		#{questionChapterId,jdbcType=INTEGER},
+		#{questionEmphasisId,jdbcType=INTEGER},
+		#{questionVersionId,jdbcType=INTEGER},
+		#{questionLevelText,jdbcType=VARCHAR},
+		#{questionTypeText,jdbcType=VARCHAR},
+		#{questionGradeText,jdbcType=VARCHAR},
+		#{questionChapterText,jdbcType=VARCHAR},
+		#{questionEmphasisText,jdbcType=VARCHAR},
+		#{questionVersionText,jdbcType=VARCHAR}
 		)
 	</insert>
 
-	<update id="update" parameterType="com.liusiyang.question.entity.BasketTemp">
-		update t_basket_temp set
-		filling_no = #{fillingNo,jdbcType=VARCHAR},
-		choose_no =
-		#{chooseNo,jdbcType=VARCHAR},
-		explain_no =
-		#{explainNo,jdbcType=VARCHAR}
-		question_numbers =
-		#{questionNumbers,jdbcType=INTEGER}
-		where basket_list_id =
-		#{basketListId,jdbcType=INTEGER}
-	</update>
 
 	<!-- 通过关键字分页查询, 返回数据集 -->
 	<select id="selectPageList" parameterType="page" resultMap="BaseResultMap">

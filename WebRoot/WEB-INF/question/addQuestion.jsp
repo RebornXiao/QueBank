@@ -5,7 +5,12 @@
 <head>
 
 <title>添加题目</title>
-
+<script type="text/javascript">
+	window.onload = function() {
+		var editor =CKEDITOR.replace('questionText');
+		CKFinder.setupCKEditor(editor,'/ckeditor/');
+	};
+</script>
 
 </head>
 
@@ -13,13 +18,11 @@
 	<center>
 		<h3>添加题目</h3>
 	</center>
-	<form id="add"
-		action="${proPath}/question/insert.action"
-		method="post">
+	<form id="add" action="${proPath}/question/insert.action" method="post">
 
 		<div>
 			<th>题目内容</th>
-			<textarea name="questionText" cols="80 " rows="10 "></textarea>
+			<textarea name="questionText" cols="80 " rows="10 " ></textarea>
 			<font color="red">${msg }</font>
 		</div>
 		<div>
@@ -50,15 +53,20 @@
 		</div>
 		<div>
 			<th>题目章节</th>
-			<td><input type="text" name="questionChapterId" style = "width:500px"/></td>
+			<td><input type="text" name="questionChapterId"
+				style="width:500px" />
+			</td>
 		</div>
 		<div>
 			<th>提高拓展专题</th>
-			<td><input type="text" name="questionEmphasisId" style = "width:500px"/></td>
+			<td><input type="text" name="questionEmphasisId"
+				style="width:500px" />
+			</td>
 			</tr>
 			<div>
 				<td colspan="2" align="center"><input type="submit" value="保存" />&nbsp;
-					<input type="reset" value="重置" /></td>
+					<input type="reset" value="重置" />
+				</td>
 			</div>
 	</form>
 
