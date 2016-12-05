@@ -2,52 +2,43 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@include file="/common/common.jspf"%>
 <html>
-  <head>
-   
+<head>
+
 
 <script type="text/javascript">
 	$(function() {
-
-		$('#questiontable').datagrid({
-			url : '${proPath}/question/selectPage.action',
-			fitColumns : true,
-			nowrapL : true,
-			idField : 'questionId',
-			rownumbers : true,
-			pagination : true,
-			pageSize : 1,
-			pageList : [ 1, 2, 4, 8 ],
+		$('#tt').treegrid({
+			url : '${proPath}/emphasis/getAllTypeTree.action',
+			idField : 'emphasisTypeId',
+			treeField : 'emphasisTypeText',
 			columns : [ [ {
-				checkbox : true,
+				field : 'emphasisTypeId',
+				title : 'emphasisTypeId',
+				width : 60,
+				align : 'right'
 			}, {
-				field : 'questionId',
-				title : '题目编号'
-			}, {
-				field : 'questionText',
-				title : '题目内容',
-				width : 100
-			}, {
-				field : 'questionAnswer',
-				title : '答案',
-				width : 100
-			}, {
-				field : 'questionLevelText',
-				title : '难度',
-				width : 100
-			}, {
-				field : 'questionGradeText',
-				title : '年级',
-				width : 100
-			} ] ]
+				field : 'emphasisTypeText',
+				title : 'emphasisTypeText',
+				width : 80
+			}, ] ]
 		});
+		
+		$('#tt').treegrid('append', {
+			parent : emphasisTypeId, // the node has a 'id' value that defined through 'idField' property
+			data : [ {
+				id : '073',
+				name : 'name73'
+			} ]
+		});
+
 	});
 </script>
 
-  </head>
-  
-  <body>
-    
+</head>
 
-<table id="questiontable" class="easyui-datagrid"></table>
-  </body>
+<body>
+
+	<table id="tt" style="width:1600px;height:400px"></table>
+
+</body>
 </html>

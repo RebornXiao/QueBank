@@ -60,31 +60,48 @@
 					</ul>
 				</div>
 
-				<div title="题目类型管理">
+				<div title="章节管理">
 
 					<!-- list-style: none去左边的点；text-decoration: none：去超链接下划线,title用来区分后继定位这里的超链接 -->
 					<ul style="list-style: none;padding: 0px;margin:0px;">
 						<li style="padding: 6px;"><a
-							href="${proPath}/base/goURL/emphasis/addEmphasis.action"
-							title="题目考点"
-							style="text-decoration: none;display: block;font-weight:bold;">题目类型</a>
+							href="${proPath}/base/goURL/chapter/chapterlist.action"
+							title="题目章节"
+							style="text-decoration: none;display: block;font-weight:bold;">题目章节</a>
 						</li>
 						<li style="padding: 6px;"><a
 							href="${proPath}/base/goURL/chapter/addChapter.action"
-							title="题目章节"
+							title="添加章节"
 							style="text-decoration: none;display:
-							block;font-weight:bold;">题目章节</a>
+							block;font-weight:bold;">添加章节</a>
+						</li>
+					</ul>
+				</div>
+					<div title="考点管理">
+
+					<!-- list-style: none去左边的点；text-decoration: none：去超链接下划线,title用来区分后继定位这里的超链接 -->
+					<ul style="list-style: none;padding: 0px;margin:0px;">
+						<li style="padding: 6px;"><a
+							href="${proPath}/base/goURL/emphasis/emphasislist.action"
+							title="题目考点"
+							style="text-decoration: none;display: block;font-weight:bold;">题目考点</a>
+						</li>
+						<li style="padding: 6px;"><a
+							href="${proPath}/base/goURL/emphasis/addEmphasis.action"
+							title="添加考点"
+							style="text-decoration: none;display:
+							block;font-weight:bold;">添加考点</a>
 						</li>
 					</ul>
 				</div>
 
-				<div title="试卷篮">
+				<div title="试题篮">
 
 					<!-- list-style: none去左边的点；text-decoration: none：去超链接下划线,title用来区分后继定位这里的超链接 -->
 					<ul style="list-style: none;padding: 0px;margin:0px;">
 						<li style="padding: 6px;"><a
-							href="${proPath}/base/goURL/basket/basketlist.action" title="试卷篮"
-							style="text-decoration: none;display: block;font-weight:bold;">试卷篮</a>
+							href="${proPath}/base/goURL/basket/basketlist.action" title="试题篮"
+							style="text-decoration: none;display: block;font-weight:bold;">试题篮</a>
 						</li>
 						<li style="padding: 6px;"><a
 							href="${proPath}/base/goURL/basket/addbasket.action" title="随机试题篮"

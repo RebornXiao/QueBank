@@ -1,7 +1,12 @@
 package com.liusiyang.question.action;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
 
+import org.apache.commons.collections.map.HashedMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -9,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.liusiyang.question.entity.EmphasisQuestion;
+import com.liusiyang.question.entity.EmphasisType;
 import com.liusiyang.question.entity.Page;
 import com.liusiyang.question.service.EmphasisService;
 import com.liusiyang.question.service.EmphasisTypeService;
@@ -65,6 +71,20 @@ public class EmphasisAction extends BaseAction {
 		log.info("查询重点类型");
 		emphasisTypeService.getAll();
 		return emphasisTypeService.getAll();
+	}
+
+	@RequestMapping("/getAllTypeTree")
+	@ResponseBody
+	public List<List<EmphasisType>> getAllTree() {
+		log.info("查询重点类型");
+		List<EmphasisType> allEmphasisTypes = emphasisTypeService.getAll();
+//		Map<String, Object> map = new HashedMap();
+//		map.put("rows", allEmphasisTypes);
+		List<List<EmphasisType>> list = new ArrayList<List<EmphasisType>>();
+		list.add(allEmphasisTypes);
+		list.add(allEmphasisTypes);
+		list.add(allEmphasisTypes);
+		return list;
 	}
 
 }

@@ -3,6 +3,8 @@ package com.liusiyang.question.util;
 import java.awt.Color;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.StringReader;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,6 +24,8 @@ import com.lowagie.text.PageSize;
 import com.lowagie.text.Paragraph;
 import com.lowagie.text.Phrase;
 import com.lowagie.text.Table;
+import com.lowagie.text.html.simpleparser.HTMLWorker;
+import com.lowagie.text.html.simpleparser.StyleSheet;
 import com.lowagie.text.pdf.BaseFont;
 import com.lowagie.text.rtf.RtfWriter2;
 import com.sun.org.apache.regexp.internal.recompile;
@@ -37,27 +41,32 @@ public class WordTool {
 		// 设置中文字体
 		BaseFont bfChinese = BaseFont.createFont("STSongStd-Light",
 				"UniGB-UCS2-H", BaseFont.NOT_EMBEDDED);
+
 		addTitle(document, bfChinese, titleStr);
 		// 正文字体风格
 		document.add(new Paragraph("\n"));
 		document.add(new Paragraph("\n"));
 		// addUnderline(document);
 		for (int i = 0, size = strings.size(); i < size; i++) {
-			addContent(document, bfChinese, strings.get(i));
+			Paragraph context = new Paragraph();
+			StyleSheet ss = new StyleSheet();
+			List htmlList = HTMLWorker.parseToList(
+					new StringReader(strings.get(i)), ss);
+			// addContent(document, bfChinese, strings.get(i));
+			if (htmlList != null && htmlList.size() > 0) {
+				for (int j = 0, size2 = htmlList.size(); j < size; j++) {
+					com.lowagie.text.Element e = (com.lowagie.text.Element) htmlList
+							.get(i);
+					context.add(e);
+				}
+			}
+			document.add(context);
 		}
 		// 利用类FontFactory结合Font和Color可以设置各种各样字体样式
 		// addTable(document, bfChinese);
 		document.add(new Paragraph("\n"));
 		// 添加图片
-		// Image
-		// img=Image.getInstance("http://127.0.0.1:8080/testSystem/images/1_r1_c1.png");
-		// img.setAbsolutePosition(0, 0);
-		// img.setAlignment(Image.RIGHT);//设置图片显示位置
-		// img.scaleAbsolute(12,35);//直接设定显示尺寸
-		// img.scalePercent(50);//表示显示的大小为原尺寸的50%
-		// img.scalePercent(25, 12);//图像高宽的显示比例
-		// img.setRotation(30);//图像旋转一定角度
-		// document.add(img);
+
 		document.close();
 	}
 
@@ -86,6 +95,7 @@ public class WordTool {
 		// 设置第一行空的列数
 		context.setFirstLineIndent(20);
 		document.add(context);
+
 	}
 
 	// 添加下划线
@@ -135,6 +145,18 @@ public class WordTool {
 		document.add(aTable);
 	}
 
+	private void addImage(Document document, String url)
+			throws DocumentException, MalformedURLException, IOException {
+		Image img = Image.getInstance(url);
+		// img.setAbsolutePosition(0, 0);l
+		img.setAlignment(Image.RIGHT);// 设置图片显示位置
+		img.scaleAbsolute(12, 35);// 直接设定显示尺寸
+		img.scalePercent(100);// 表示显示的大小为原尺寸的50%
+		// img.scalePercent(25, 12);// 图像高宽的显示比例
+		// img.setRotation(30);// 图像旋转一定角度
+		document.add(img);
+	}
+
 	public static void main(String[] args) {
 		WordTool b = new WordTool();
 		List<String> strings = new ArrayList<String>();
@@ -164,4 +186,5 @@ public class WordTool {
 			}
 		}
 	}
+
 }

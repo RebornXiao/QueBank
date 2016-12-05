@@ -34,6 +34,12 @@ import org.jdom.Namespace;
 import org.jdom.input.SAXBuilder;
 import org.xml.sax.InputSource;
 
+
+import java.io.FileOutputStream;  
+import java.io.OutputStream;  
+import java.io.StringReader;  
+import java.util.List;  
+  
 @Controller
 @RequestMapping("/question")
 public class QuestionAction extends BaseAction {
@@ -48,13 +54,8 @@ public class QuestionAction extends BaseAction {
 		log.info("新增问题");
 		try {
 			String questionText = questionContent.getQuestionText();
-			// Pattern p = Pattern.compile("\" src=\"(.*?)\"\"");
 			Pattern p = Pattern.compile("\" src=\"(.*?)\" width=");
 			Matcher m = p.matcher(questionText);
-			// Matcher m2 = p.matcher(questionText);
-
-			// List<String> picList = new ArrayList<String>();
-			// picList.clear();
 			while (m.find()) {
 				System.out.println(m.group(1));
 				String filePath = m.group(1);
@@ -69,33 +70,7 @@ public class QuestionAction extends BaseAction {
 				questionText = questionText.replace(filePath,
 						"http://localhost:8080/qb/upload/" + f.getName());
 				log.info("上传地址:" + questionText);
-				// } else if (filePath.startsWith("http")) {
-				// // String filepathupload = filePath.replace("file:///", "");
-				// // filepathupload = filepathupload.replace("\\", "/");
-				// File f = new File(filePath);
-				// String basePath = ContextLoader
-				// .getCurrentWebApplicationContext()
-				// .getServletContext().getRealPath("/upload");
-				// upload(f, basePath);
-				// questionText = questionText.replace(filePath,
-				// "${proPath}/upload/" + f.getName());
-				// log.info("上传地址:" + questionText);
-				// }
 			}
-			// while (m2.find()) {
-			// System.out.println(m.group(1));
-			// String filePath = m.group(1);
-			// String filepathupload = filePath.replace("file:///", "");
-			// filepathupload = filepathupload.replace("\\", "/");
-			// File f = new File(filepathupload);
-			// String basePath = ContextLoader
-			// .getCurrentWebApplicationContext().getServletContext()
-			// .getRealPath("/upload");
-			// upload(f, basePath);
-			// questionText = questionText.replace(filePath,
-			// "${proPath}/upload/" + f.getName());
-			// log.info("上传地址:"+questionText);
-			// }
 			questionContent.setQuestionText(questionText);
 			questionContent.setQuestionAnswer("");
 			questionContent.setQuestionTypeText(QuestionUtils
@@ -176,7 +151,7 @@ public class QuestionAction extends BaseAction {
 		SAXBuilder sb = new SAXBuilder();
 		try {
 			// 通过输入源构造一个Document
-			Document doc = sb.build(source);
+			org.jdom.Document doc = sb.build(source);
 			// 取的根元素
 			Element root = doc.getRootElement();
 			System.out.println(root.getName());// 输出根元素的名称（测试）
@@ -208,4 +183,5 @@ public class QuestionAction extends BaseAction {
 		return null;
 	}
 
+	
 }

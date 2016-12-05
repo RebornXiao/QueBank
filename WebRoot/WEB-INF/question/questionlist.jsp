@@ -21,31 +21,31 @@
 			}, {
 				field : 'questionText',
 				title : '题目内容',
-				width : 500
+				width : 750
 			}, {
 				field : 'questionLevelText',
 				title : '难度',
-				width : 100
+				width : 75
 			}, {
 				field : 'questionTypeText',
 				title : '类型',
-				width : 100
+				width : 75
 			}, {
 				field : 'questionGradeText',
 				title : '年级',
-				width : 100
+				width : 75
 			}, {
 				field : 'questionChapterText',
 				title : '分类',
-				width : 100
+				width : 75
 			}, {
 				field : 'questionEmphasisText',
 				title : '考点',
-				width : 100
+				width : 75
 			}, {
 				field : 'questionVersionText',
 				title : '版本',
-				width : 100
+				width : 75
 			} ] ],
 			pagination : true,
 			rownumbers : true
