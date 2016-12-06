@@ -10,6 +10,7 @@
 <script type="text/javascript" src="${proPath}/js/common.js"></script>
 <script type="text/javascript"src="${proPath}/ckeditor/ckeditor.js"></script>
 <script type="text/javascript" src="${proPath}/ckfinder/ckfinder.js"></script> 
-<link rel="stylesheet" href="${proPath}/css/mycss.css" type="text/css"></link>
 <script type="text/javascript" src="${proPath}/js/jscharts.js"></script>
+<link rel="stylesheet" href="${proPath}/css/mycss.css" type="text/css"></link>
+<link rel="stylesheet" href="${proPath}/css/global-marge-2016.10.15.css" type="text/css"></link>
 
