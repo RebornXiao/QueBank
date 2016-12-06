@@ -41,4 +41,13 @@
 		#{start},#{rows}
 	</select>
 
+	<!-- 通过关键字分页查询, 返回数据集 -->
+	<select id="selectEmphasis" parameterType="Integer" resultMap="emphasisResultMap">
+		select * from t_emphasis_question
+		where emphasis_type =
+		#{emphasisType,jdbcType=INTEGER},
+	</select>
+
+
+
 </mapper>

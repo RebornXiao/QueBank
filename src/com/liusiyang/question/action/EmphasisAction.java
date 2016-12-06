@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.liusiyang.question.entity.EmphasisQuestion;
+import com.liusiyang.question.entity.EmphasisQuestionTree;
 import com.liusiyang.question.entity.EmphasisType;
+import com.liusiyang.question.entity.EmphasisTypeTree;
 import com.liusiyang.question.entity.Page;
 import com.liusiyang.question.service.EmphasisService;
 import com.liusiyang.question.service.EmphasisTypeService;
@@ -75,16 +77,42 @@ public class EmphasisAction extends BaseAction {
 
 	@RequestMapping("/getAllTypeTree")
 	@ResponseBody
-	public List<List<EmphasisType>> getAllTree() {
+	public List<EmphasisTypeTree> getAllTree() {
 		log.info("查询重点类型");
+
 		List<EmphasisType> allEmphasisTypes = emphasisTypeService.getAll();
-//		Map<String, Object> map = new HashedMap();
-//		map.put("rows", allEmphasisTypes);
-		List<List<EmphasisType>> list = new ArrayList<List<EmphasisType>>();
-		list.add(allEmphasisTypes);
-		list.add(allEmphasisTypes);
-		list.add(allEmphasisTypes);
-		return list;
+
+		List<EmphasisTypeTree> emphasisTypeTrees = new ArrayList<EmphasisTypeTree>();
+
+		if (allEmphasisTypes != null && allEmphasisTypes.size() > 0) {
+			for (int i = 0, size = allEmphasisTypes.size(); i < size; i++) {
+				List<EmphasisQuestion> emphasisQuestions = emphasisService
+						.selectEmphasis(allEmphasisTypes.get(1)
+								.getEmphasisTypeId());
+				List<EmphasisQuestionTree> emphasisQuestionTrees = new ArrayList<EmphasisQuestionTree>();
+				
+				if (emphasisQuestionTrees != null
+						&& emphasisQuestionTrees.size() > 0) {
+					for (int j = 0, size2 = emphasisQuestions.size(); j < size2; j++) {
+						EmphasisQuestionTree emphasisQuestionTree = new EmphasisQuestionTree(
+								emphasisQuestions.get(j).getEmphasisId(),
+								emphasisQuestions.get(j).getEmphasisTypeText());
+						emphasisQuestionTrees.add(emphasisQuestionTree);
+					}
+				}
+				
+				EmphasisTypeTree emphasisTypeTree = new EmphasisTypeTree(
+						allEmphasisTypes.get(i).getEmphasisTypeId(),
+						allEmphasisTypes.get(i).getEmphasisTypeText());
+				emphasisTypeTree.setChildren(emphasisQuestionTrees);
+				emphasisTypeTrees.add(emphasisTypeTree);
+
+			}
+		}
+
+		// Map<String, Object> map = new HashedMap();
+		// map.put("rows", allEmphasisTypes);
+		return emphasisTypeTrees;
 	}
 
 }
