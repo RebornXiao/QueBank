@@ -8,6 +8,7 @@
 	var bookID, f = '0';
 	var q = '', ct = 0, dg = 0, fg = 0, po = 0, pd = 1, pi = 1;
 	function setFG(el, val) {
+	
 		el = $(el);
 		fg = val;
 		pi = 1;
