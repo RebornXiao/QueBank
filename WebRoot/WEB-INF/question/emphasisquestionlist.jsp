@@ -5,19 +5,65 @@
 <head>
 
 <script type="text/javascript">
+	$(function() {
+		$('#questiontable').datagrid({
+			url : '${proPath}/question/selectByEmphasis.action',
+			title : '题目列表',
+			fitColumns : true,
+			nowrapL : true,
+			idField : 'questionId',
+			rownumbers : true,
+			pagination : true,
+			pageSize : 50,
+			pageList : [ 50, 100, 200, 500 ],
+
+			queryParams : {
+				questionLevelId : '%%',
+				questionTypeId : '%%'
+			},
+
+			columns : [ [ {
+				checkbox : true,
+			}, {
+				field : 'questionText',
+				title : '题目内容',
+				width : 1000
+			}, {
+				field : 'questionLevelText',
+				title : '难度',
+				width : 75
+			}, {
+				field : 'questionTypeText',
+				title : '类型',
+				width : 75
+			}, {
+				field : 'questionGradeText',
+				title : '年级',
+				width : 75
+			}, {
+				field : 'questionChapterText',
+				title : '分类',
+				width : 75
+			}, {
+				field : 'questionEmphasisText',
+				title : '考点',
+				width : 75
+			}, {
+				field : 'questionVersionText',
+				title : '版本',
+				width : 75
+			} ] ],
+			pagination : true,
+			rownumbers : true
+		});
+	});
+
+	//题型  全部 0，ct选择  填空  解答  123
+	//难度  全部 0 dg 123
+	//
 	var bookID, f = '0';
 	var q = '', ct = 0, dg = 0, fg = 0, po = 0, pd = 1, pi = 1;
-	function setFG(el, val) {
-	
-		el = $(el);
-		fg = val;
-		pi = 1;
-		$('li', el.closest('ul')).each(function() {
-			$('a', $(this)).removeClass('cur');
-		});
-		el.addClass('cur');
-		_loadList();
-	}
+
 	function setCT(el, val) {
 		el = $(el);
 		ct = val;
@@ -28,6 +74,7 @@
 		el.addClass('cur');
 		_loadList();
 	}
+	
 	function setDG(el, val) {
 		el = $(el);
 		dg = val;
@@ -38,54 +85,12 @@
 		el.addClass('cur');
 		_loadList();
 	}
+	
 	function _loadList() {
-
-		var url = '/math/ques/partialques?q=' + encodeURIComponent(q) + '&f='
-				+ f;
-
-		url += '&ct=' + ct;
-		url += '&dg=' + dg;
-		url += '&fg=' + fg;
-		url += '&po=' + po;
-		url += '&pd=' + pd;
-		url += '&pi=' + pi;
-		url += '&r=' + Math.random();
-
-		var divList = $("#divList")
-				.empty()
-				.loading("CT")
-				.load(
-						url,
-						function(response, status, xhr) {
-							divList.loaded();
-
-							switch (status) {
-							case 'success':
-							case 'notmodified':
-								_setCookiePM();
-								try {
-									renderLatex(this);
-								} catch (e) {
-								}
-								break;
-							case 'error':
-								divList
-										.html('<div class="message emsg">系统错误，请与客服联系。</div>');
-								break;
-							case 'timeout':
-								divList
-										.html('<div class="message emsg">系统繁忙，请稍后再试。</div>');
-								break;
-							case 'parsererror':
-								divList
-										.html('<div class="message emsg">系统错误，请与客服联系。</div>');
-								break;
-							default:
-								divList
-										.html('<div class="message emsg">参数传入错误。</div>');
-								break;
-							}
-						});
+		$('#questiontable').datagrid('load', {
+			questionLevelId : '%' + dg + '%',
+			questionTypeId : '%' + ct + '%'
+		});
 
 	}
 	function _setCookiePM() {
@@ -185,63 +190,35 @@
 				<td>
 					<ul>
 						<li><a class="cur" onclick="setCT(this,0)"
-							href="javascript:void(0)">全部</a>
-						</li>
+							href="javascript:void(0)">全部</a></li>
 						<li><a onclick="setCT(this,1)" href="javascript:void(0)"
-							class="">选择题</a>
-						</li>
+							class="">选择题</a></li>
 						<li><a onclick="setCT(this,2)" href="javascript:void(0)">填空题</a>
 						</li>
 						<li><a onclick="setCT(this,9)" href="javascript:void(0)"
-							class="">解答题</a>
-						</li>
-					</ul>
-				</td>
+							class="">解答题</a></li>
+					</ul></td>
 			</tr>
 			<tr>
 				<th>难度</th>
 				<td>
 					<ul>
 						<li><a class="cur" onclick="setDG(this,0)"
-							href="javascript:void(0)">全部</a>
-						</li>
+							href="javascript:void(0)">全部</a></li>
 						<li><a onclick="setDG(this,1)" href="javascript:void(0)">基础题</a>
 						</li>
 						<li><a onclick="setDG(this,2)" href="javascript:void(0)"
-							class="">中档题</a>
-						</li>
+							class="">中档题</a></li>
 						<li><a onclick="setDG(this,3)" href="javascript:void(0)">难题</a>
 						</li>
-					</ul>
-				</td>
+					</ul></td>
 			</tr>
-			<tr>
-				<th style="border: currentColor; border-image: none;">题类</th>
-				<td style="border: currentColor; border-image: none;">
-					<ul>
-						<li><a class="cur" onclick="setFG(this,0)"
-							href="javascript:void(0)">全部</a>
-						</li>
-						<li><a onclick="setFG(this,1)" href="javascript:void(0)"
-							class="">中考题</a>
-						</li>
-						<li><a onclick="setFG(this,8)" href="javascript:void(0)"
-							class="">常考题</a>
-						</li>
-						<li><a onclick="setFG(this,4)" href="javascript:void(0)"
-							class="">易错题</a>
-						</li>
-						<li><a onclick="setFG(this,2)" href="javascript:void(0)"
-							class="">好题</a>
-						</li>
-						<li><a onclick="setFG(this,16)" href="javascript:void(0)">压轴题</a>
-						</li>
-					</ul>
-				</td>
-			</tr>
+
 		</tbody>
 	</table>
 
+	<table id="questiontable" class="easyui-datagrid">
+	</table>
 
 </body>
 </html>

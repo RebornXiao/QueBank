@@ -2,24 +2,19 @@ package com.liusiyang.question.action;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.apache.commons.collections.map.HashedMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.liusiyang.question.entity.Combobox;
 import com.liusiyang.question.entity.EmphasisQuestion;
-import com.liusiyang.question.entity.EmphasisQuestionTree;
-import com.liusiyang.question.entity.EmphasisType;
-import com.liusiyang.question.entity.EmphasisTypeTree;
 import com.liusiyang.question.entity.Page;
 import com.liusiyang.question.service.EmphasisService;
-import com.liusiyang.question.service.EmphasisTypeService;
 
 /**
  * 根据重点
@@ -32,26 +27,34 @@ public class EmphasisAction extends BaseAction {
 	@Resource
 	EmphasisService emphasisService;
 
-	@Resource
-	EmphasisTypeService emphasisTypeService;
-
-	@RequestMapping(value = "/insert")
-	// @ResponseBody //如果返回json格式，需要这个注解，这里用来测试环境
-	public String insert(EmphasisQuestion emphasisQuestion) {
+	@RequestMapping("/insert")
+	@ResponseBody
+	public String insert(String emphasis) {
 		log.info("新增重点");
+		try {
+			EmphasisQuestion emphasisQu = emphasisService
+					.getEmphasisQuestion(emphasis);
+			if (emphasisQu != null && emphasisQu.getEmphasisId() > 0) {
+				return "have";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		EmphasisQuestion emphasisQuestion = new EmphasisQuestion();
+		emphasisQuestion.setEmphasisContent(emphasis);
 		try {
 			emphasisService.insert(emphasisQuestion);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "forward:/base/goURL/emphasis/addEmphasis.action";
+		return "success";
 	}
 
 	// 通过关键字分页查询
 	@RequestMapping("/selectPage")
 	@ResponseBody
 	public Object selectPage(Page<EmphasisQuestion> page,
-			EmphasisQuestion emphasisQuestion) {
+			EmphasisQuestion emphasisQuestion) throws Exception {
 		// page.setPage(1);
 		// page.setRows(2);
 		// page.setStart(1);
@@ -67,52 +70,23 @@ public class EmphasisAction extends BaseAction {
 		return p.getPageMap();
 	}
 
-	@RequestMapping("/getAllType")
+	// 通过关键字分页查询
+	@RequestMapping("/selectAll")
 	@ResponseBody
-	public Object getAll() {
-		log.info("查询重点类型");
-		emphasisTypeService.getAll();
-		return emphasisTypeService.getAll();
-	}
-
-	@RequestMapping("/getAllTypeTree")
-	@ResponseBody
-	public List<EmphasisTypeTree> getAllTree() {
-		log.info("查询重点类型");
-
-		List<EmphasisType> allEmphasisTypes = emphasisTypeService.getAll();
-
-		List<EmphasisTypeTree> emphasisTypeTrees = new ArrayList<EmphasisTypeTree>();
-
-		if (allEmphasisTypes != null && allEmphasisTypes.size() > 0) {
-			for (int i = 0, size = allEmphasisTypes.size(); i < size; i++) {
-				List<EmphasisQuestion> emphasisQuestions = emphasisService
-						.selectEmphasis(allEmphasisTypes.get(1)
-								.getEmphasisTypeId());
-				List<EmphasisQuestionTree> emphasisQuestionTrees = new ArrayList<EmphasisQuestionTree>();
-				
-				if (emphasisQuestionTrees != null
-						&& emphasisQuestionTrees.size() > 0) {
-					for (int j = 0, size2 = emphasisQuestions.size(); j < size2; j++) {
-						EmphasisQuestionTree emphasisQuestionTree = new EmphasisQuestionTree(
-								emphasisQuestions.get(j).getEmphasisId(),
-								emphasisQuestions.get(j).getEmphasisTypeText());
-						emphasisQuestionTrees.add(emphasisQuestionTree);
-					}
-				}
-				
-				EmphasisTypeTree emphasisTypeTree = new EmphasisTypeTree(
-						allEmphasisTypes.get(i).getEmphasisTypeId(),
-						allEmphasisTypes.get(i).getEmphasisTypeText());
-				emphasisTypeTree.setChildren(emphasisQuestionTrees);
-				emphasisTypeTrees.add(emphasisTypeTree);
-
+	public Object selectAll() throws Exception {
+		List<EmphasisQuestion> emphasisQuestions = emphasisService.getAll();
+		List<Combobox> comboboxs = new ArrayList<Combobox>();
+		comboboxs.clear();
+		if (emphasisQuestions != null && emphasisQuestions.size() > 0) {
+			for (int i = 1, size = emphasisQuestions.size() + 1; i < size; i++) {
+				Combobox combobox = new Combobox();
+				combobox.setId(i);
+				combobox.setText(emphasisQuestions.get(i - 1)
+						.getEmphasisContent());
+				comboboxs.add(combobox);
 			}
 		}
 
-		// Map<String, Object> map = new HashedMap();
-		// map.put("rows", allEmphasisTypes);
-		return emphasisTypeTrees;
+		return comboboxs;
 	}
-
 }

@@ -16,6 +16,8 @@ public interface BaseMapper<T> {
 
 	// 通过主键（数组）批量删除数据
 	public int deleteList(String[] pks);
+	
+	public List<T> selectAll();
 
 	// 查询单个对象
 	public T select(Integer id);

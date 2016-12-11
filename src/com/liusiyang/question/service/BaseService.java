@@ -1,5 +1,7 @@
 package com.liusiyang.question.service;
 
+import java.util.List;
+
 import com.liusiyang.question.entity.Page;
 
 public interface BaseService<T> {
@@ -10,11 +12,13 @@ public interface BaseService<T> {
 
 	public int delete(T entity) throws Exception;
 
-	public T select(Integer id);
+	public T select(Integer id) throws Exception;
+
+	public List<T> getAll() throws Exception;
 
 	// 通过关键字分页查询
-	public Page<T> selectPage(Page<T> page);
+	public Page<T> selectPage(Page<T> page) throws Exception;
 
 	// 通过多条件分页查询
-	public Page<T> selectPageUseDyc(Page<T> page);
+	public Page<T> selectPageUseDyc(Page<T> page) throws Exception;
 }

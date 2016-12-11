@@ -17,4 +17,8 @@ public class EmphasisServiceImpl extends BaseServiceImpl<EmphasisQuestion>
 		return emphasisQuestionMapper.selectEmphasis(id);
 	}
 
+	public EmphasisQuestion getEmphasisQuestion(String em) {
+		return emphasisQuestionMapper.getEmphasisQuestion(em);
+	}
+
 }

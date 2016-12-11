@@ -180,7 +180,7 @@ public class BasketAction extends BaseAction {
 	// 通过关键字分页查询
 	@RequestMapping("/selectPage")
 	@ResponseBody
-	public Object selectPage(Page<BasketList> page) {
+	public Object selectPage(Page<BasketList> page) throws Exception {
 		log.info("分页查询试题篮");
 		Page<BasketList> p = basketListService.selectPage(page);
 		return p.getPageMap();
@@ -189,7 +189,7 @@ public class BasketAction extends BaseAction {
 	// 通过关键字分页查询
 	@RequestMapping("/outPrint")
 	@ResponseBody
-	public String outPrint(Integer id) {
+	public String outPrint(Integer id) throws Exception {
 		BasketList basketList = basketListService.select(id);
 		WordTool tool = new WordTool();
 		String chooseNo = basketList.getChooseNo();

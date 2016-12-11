@@ -130,7 +130,7 @@ public class QuestionAction extends BaseAction {
 	// 通过关键字分页查询
 	@RequestMapping("/selectPage")
 	@ResponseBody
-	public Object selectPage(Page<QuestionContent> page) {
+	public Object selectPage(Page<QuestionContent> page) throws Exception {
 		log.info("分页查询问题");
 		Page<QuestionContent> p = questionService.selectPage(page);
 		return p.getPageMap();
@@ -141,6 +141,16 @@ public class QuestionAction extends BaseAction {
 	public Object selectById(Integer questionId) {
 		return questionService.selectById(questionId);
 	}
+	
+	@RequestMapping("/selectByEmphasis")
+	@ResponseBody
+	public Object selectByEmphasis(Page<QuestionContent> page,QuestionContent questionContent) throws Exception {
+		log.info("分页查询问题");
+		Page<QuestionContent> p = questionService.selectPage(page);
+		return p.getPageMap();
+	}
+	
+	
 
 	public List xmlElements(String xmlDoc) {
 		// 创建一个新的字符串

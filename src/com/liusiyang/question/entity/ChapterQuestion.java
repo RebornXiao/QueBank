@@ -9,9 +9,6 @@ public class ChapterQuestion implements Serializable{
 
 	private String chapterContent;
 
-	private Integer chapterGrade;
-
-	private String chapterNum;
 
 	public Integer getChapterId() {
 		return chapterId;
@@ -29,21 +26,6 @@ public class ChapterQuestion implements Serializable{
 		this.chapterContent = chapterContent;
 	}
 
-	public Integer getChapterGrade() {
-		return chapterGrade;
-	}
-
-	public void setChapterGrade(Integer chapterGrade) {
-		this.chapterGrade = chapterGrade;
-	}
-
-	public String getChapterNum() {
-		return chapterNum;
-	}
-
-	public void setChapterNum(String chapterNum) {
-		this.chapterNum = chapterNum;
-	}
 
 	private static final long serialVersionUID = 2665199576775576730L;
 

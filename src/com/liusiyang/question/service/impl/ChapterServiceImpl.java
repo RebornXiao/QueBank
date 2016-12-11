@@ -9,4 +9,8 @@ import com.liusiyang.question.service.ChapterService;
 public class ChapterServiceImpl extends BaseServiceImpl<ChapterQuestion>
 		implements ChapterService {
 
+	public ChapterQuestion getChapter(String chapter) {
+		return chapterQuestionMapper.selectChapter(chapter);
+	}
+
 }

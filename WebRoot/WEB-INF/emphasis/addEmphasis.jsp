@@ -5,39 +5,54 @@
 <head>
 
 <title>添加题目</title>
+<script type="text/javascript">
+	$(function() {
 
+		$("#btnAdd").bind("click", function() {
+			var emphasis = $("#emphasis").val();
+			if (emphasis == null || emphasis == "") {
+				$.messager.alert("提示", "请输入考点内容", "info");
+				return;
+			}
+			$.post('${proPath}/emphasis/insert.action', {
+				"emphasis" : emphasis
+			}, function(data) {
+				if (data == "success") {
+					$.messager.alert("提示", "保存成功", "info");
+				} else {
 
+					if (data == "have") {
+						$.messager.alert("提示", "考点内容已存在", "info");
+					} else {
+						$.messager.alert("提示", "保存失败", "info");
+					}
+				}
+			}, "text");
+		});
+	});
+</script>
 </head>
 
 <body>
 	<center>
 		<h3>添加考点</h3>
 	</center>
-	<form id="add"
-		action="${proPath}/emphasis/insert.action"
-		method="post">
 
-		<div>
-			<th>考点分类</th>
+	<div>
+		<th>考点分类</th>
 
-			<td><input id="cc" class="easyui-combobox" name="dept"
-				data-options="valueField:'id',textField:'text',url:'${proPath}/emphasis/getAllType.action'" />
+		<td><input id="emphasis" type="text" name="emphasisContent"
+			style="width:500px" /></td>
 
-				<input type="text" name="emphasisContent" />
+	</div>
+	<div>
+		<form>
+			<td colspan="2" align="center"><a href="javascript:void(0);"
+				class="easyui-linkbutton" iconCls="icon-add" plain="true"
+				id="btnAdd">保存</a>
 			</td>
-
-		</div>
-		<div>
-			<th>提高拓展专题</th>
-			<td><input type="text" name="emphasisTypeText" />
-			</td>
-			</tr>
-			<div>
-				<td colspan="2" align="center"><input type="submit" value="保存" />&nbsp;
-					<input type="reset" value="重置" />
-				</td>
-			</div>
-	</form>
+		</form>
+	</div>
 
 </body>
 </html>

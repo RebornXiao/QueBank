@@ -5,5 +5,5 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface ChapterQuestionMapper extends BaseMapper<ChapterQuestion> {
-
+	ChapterQuestion selectChapter(String chapter);
 }

@@ -21,7 +21,7 @@
 			}, {
 				field : 'questionText',
 				title : '题目内容',
-				width : 750
+				width : 1000
 			}, {
 				field : 'questionLevelText',
 				title : '难度',

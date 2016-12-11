@@ -5,35 +5,32 @@
 		type="com.liusiyang.question.entity.EmphasisQuestion">
 		<id column="emphasis_id" jdbcType="INTEGER" property="emphasisId" />
 		<result column="emphasis_content" jdbcType="VARCHAR" property="emphasisContent" />
-		<result column="emphasis_type" jdbcType="INTEGER" property="emphasisType" />
-		<result column="emphasis_type_text" jdbcType="VARCHAR"
-			property="emphasisTypeText" />
 	</resultMap>
 	<!-- 根据考点 -->
 	<insert id="insert" parameterType="com.liusiyang.question.entity.EmphasisQuestion">
 		insert into
 		t_emphasis_question
-		(emphasis_content, emphasis_type,
-		emphasis_type_text
+		(emphasis_content
 		)
 		values
-		(#{emphasisContent,jdbcType=VARCHAR},
-		#{emphasisType,jdbcType=INTEGER},
-		#{emphasisTypeText,jdbcType=VARCHAR}
-		)
+		(#{emphasisContent,jdbcType=VARCHAR} )
 	</insert>
 	<update id="update" parameterType="com.liusiyang.question.entity.EmphasisQuestion">
 		insert into
 		t_emphasis_question
-		(emphasis_content, emphasis_type,
-		emphasis_type_text
+		(emphasis_content
 		)
 		values
-		(#{emphasisContent,jdbcType=VARCHAR},
-		#{emphasisType,jdbcType=INTEGER},
-		#{emphasisTypeText,jdbcType=VARCHAR}
+		(#{emphasisContent,jdbcType=VARCHAR}
 		)
 	</update>
+
+	<!-- 通过关键字分页查询, 返回数据集 -->
+	<select id="selectAll" resultMap="emphasisResultMap">
+		select * from
+		t_emphasis_question
+	</select>
+
 	<!-- 通过关键字分页查询, 返回数据集 -->
 	<select id="selectPageList" parameterType="page" resultMap="emphasisResultMap">
 		select * from t_emphasis_question
@@ -44,10 +41,13 @@
 	<!-- 通过关键字分页查询, 返回数据集 -->
 	<select id="selectEmphasis" parameterType="Integer" resultMap="emphasisResultMap">
 		select * from t_emphasis_question
-		where emphasis_type =
-		#{emphasisType,jdbcType=INTEGER},
 	</select>
 
+	<select id="getEmphasisQuestion" parameterType="String"
+		resultMap="emphasisResultMap">
+		select * from t_emphasis_question where emphasis_content
+		like (#{emphasisContent,jdbcType=VARCHAR} )
+	</select>
 
 
 </mapper>

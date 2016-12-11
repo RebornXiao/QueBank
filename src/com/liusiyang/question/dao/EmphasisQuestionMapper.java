@@ -8,4 +8,6 @@ import org.apache.ibatis.annotations.Param;
 
 public interface EmphasisQuestionMapper extends BaseMapper<EmphasisQuestion> {
 	public List<EmphasisQuestion> selectEmphasis(Integer id);
+	
+	public EmphasisQuestion getEmphasisQuestion(String emphasis);
 }

@@ -4,34 +4,46 @@
 	<resultMap id="chapterResultMap" type="com.liusiyang.question.entity.ChapterQuestion">
 		<id column="chapter_id" jdbcType="INTEGER" property="chapterId" />
 		<result column="chapter_content" jdbcType="VARCHAR" property="chapterContent" />
-		<result column="chapter_grade" jdbcType="INTEGER" property="chapterGrade" />
-		<result column="chapter_num" jdbcType="VARCHAR" property="chapterNum" />
+
 	</resultMap>
-<!-- 根據章節 -->
+	<!-- 根據章節 -->
 	<insert id="insert" parameterType="com.liusiyang.question.entity.ChapterQuestion">
 		insert into t_chapter_question
-		(chapter_content, chapter_grade, chapter_num
+		(chapter_content
 		)
 		values
-		(#{chapterContent,jdbcType=VARCHAR}, #{chapterGrade,jdbcType=INTEGER},
-		#{chapterNum,jdbcType=VARCHAR}
+		(#{chapterContent,jdbcType=VARCHAR}
 		)
 	</insert>
-	<update id="update" parameterType="com.liusiyang.question.entity.ChapterQuestion">
-		insert into t_chapter_question
-		(chapter_content, chapter_grade, chapter_num
-		)
-		values
-		(#{chapterContent,jdbcType=VARCHAR}, #{chapterGrade,jdbcType=INTEGER},
-		#{chapterNum,jdbcType=VARCHAR}
-		)
-	</update>
 	
 	<!-- 通过关键字分页查询, 返回数据集 -->
+	<select id="selectAll" resultMap="chapterResultMap">
+		select * from
+		t_chapter_question
+	</select>
+	
+	<update id="update" parameterType="com.liusiyang.question.entity.ChapterQuestion">
+		insert into t_chapter_question
+		(chapter_content
+		)
+		values
+		(#{chapterContent,jdbcType=VARCHAR}
+		)
+	</update>
+
+	<!-- 通过关键字分页查询, 返回数据集 -->
 	<select id="selectPageList" parameterType="page" resultMap="chapterResultMap">
-		select * from t_chapter_question 
+		select * from t_chapter_question
 		limit
 		#{start},#{rows}
+	</select>
+
+
+	<select id="selectChapter" parameterType="java.lang.String"
+		resultMap="chapterResultMap">
+		select * from t_chapter_question
+		where chapter_content like
+		(#{chapterContent,jdbcType=VARCHAR})
 	</select>
 
 </mapper>

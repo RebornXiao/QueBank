@@ -2,6 +2,7 @@ package com.liusiyang.question.service.impl;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 
@@ -12,7 +13,6 @@ import com.liusiyang.question.dao.BasketListMapper;
 import com.liusiyang.question.dao.BasketTempMapper;
 import com.liusiyang.question.dao.ChapterQuestionMapper;
 import com.liusiyang.question.dao.EmphasisQuestionMapper;
-import com.liusiyang.question.dao.EmphasisTypeMapper;
 import com.liusiyang.question.dao.QuestionContentMapper;
 import com.liusiyang.question.entity.Page;
 import com.liusiyang.question.service.BaseService;
@@ -22,23 +22,18 @@ public class BaseServiceImpl<T> implements BaseService<T> {
 
 	@Autowired
 	protected QuestionContentMapper questionContentMapper;
-	
+
 	@Autowired
 	protected ChapterQuestionMapper chapterQuestionMapper;
-	
+
 	@Autowired
 	protected EmphasisQuestionMapper emphasisQuestionMapper;
-	
-	@Autowired
-	protected EmphasisTypeMapper emphasisTypeMapper;
-	
+
 	@Autowired
 	protected BasketListMapper basketListMapper;
-	
+
 	@Autowired
 	protected BasketTempMapper basketTempMapper;
-	
-	
 
 	@PostConstruct
 	// 在构造方法后，初化前执行
@@ -91,20 +86,24 @@ public class BaseServiceImpl<T> implements BaseService<T> {
 		return baseMapper.deleteList(pks);
 	}
 
-	public T select(Integer id) {
+	public T select(Integer id) throws Exception {
 		return baseMapper.select(id);
 	}
 
-	public Page<T> selectPage(Page<T> page) {
+	public Page<T> selectPage(Page<T> page) throws Exception {
 		page.setList(baseMapper.selectPageList(page));
 		page.setTotalRecord(baseMapper.selectPageCount(page));
 		return page;
 	}
 
-	public Page<T> selectPageUseDyc(Page<T> page) {
+	public Page<T> selectPageUseDyc(Page<T> page) throws Exception {
 		page.setList(baseMapper.selectPageListUseDyc(page));
 		page.setTotalRecord(baseMapper.selectPageCountUseDyc(page));
 		return page;
+	}
+
+	public List<T> getAll() throws Exception {
+		return baseMapper.selectAll();
 	}
 
 }
