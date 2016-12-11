@@ -3,6 +3,17 @@ package com.liusiyang.question.entity;
 public class Combobox {
 	private Integer id;
 	private String text;
+	private boolean selected;
+	
+	
+
+	public boolean isSelected() {
+		return selected;
+	}
+
+	public void setSelected(boolean selected) {
+		this.selected = selected;
+	}
 
 	public Integer getId() {
 		return id;

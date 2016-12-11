@@ -83,6 +83,9 @@ public class EmphasisAction extends BaseAction {
 				combobox.setId(i);
 				combobox.setText(emphasisQuestions.get(i - 1)
 						.getEmphasisContent());
+				if(i == 1){
+					combobox.setSelected(true);
+				}
 				comboboxs.add(combobox);
 			}
 		}

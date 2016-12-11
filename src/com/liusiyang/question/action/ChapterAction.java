@@ -84,13 +84,16 @@ public class ChapterAction extends BaseAction {
 		List<ChapterQuestion> chapterQuestions = chapterService.getAll();
 		List<Combobox> comboboxs = new ArrayList<Combobox>();
 		comboboxs.clear();
-		
+
 		if (chapterQuestions != null && chapterQuestions.size() > 0) {
 			for (int i = 1, size = chapterQuestions.size() + 1; i < size; i++) {
 				Combobox combobox = new Combobox();
 				combobox.setId(i);
 				combobox.setText(chapterQuestions.get(i - 1)
 						.getChapterContent());
+				if (i == 1) {
+					combobox.setSelected(true);
+				}
 				comboboxs.add(combobox);
 			}
 		}
