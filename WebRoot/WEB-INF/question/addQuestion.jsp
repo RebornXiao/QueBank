@@ -32,7 +32,6 @@
 						"click",
 						function() {
 							var questionText = editor.getData();
-							alert(questionText);
 							if (questionText == null || questionText == "") {
 								$.messager.alert("提示", "请先输入题目内容", "info");
 								return;
@@ -40,46 +39,44 @@
 							var questionLevelId = $(
 									'input:radio[name="questionLevelId"]:checked')
 									.val();
-							alert(questionLevelId);
 
 							var questionTypeId = $(
 									'input:radio[name="questionTypeId"]:checked')
 									.val();
-							alert(questionTypeId);
-
 							var questionGradeId = $(
 									'input:radio[name="questionGradeId"]:checked')
 									.val();
-							alert(questionGradeId);
-
-							var cc_chapter = $('#cc_chapter').combobox(
-									'getValue');
-							alert(cc_chapter);
-							if (cc_chapter == null && cc_chapter == "") {
+							var questionChapterText = $('#cc_chapter')
+									.combobox('getText');
+							alert(questionChapterText);
+							if (questionChapterText == null
+									|| questionChapterText == "") {
 								$.messager.alert("提示", "请先输入章节内容", "info");
 								return;
 							}
 
-							var cc_emphasis = $('#cc_emphasis').combobox(
-									'getValue');
-							alert(cc_emphasis);
-							if (cc_emphasis == null && cc_emphasis == "") {
+							var questionEmphasisText = $('#cc_emphasis')
+									.combobox('getText');
+							alert(questionEmphasisText);
+							if (questionEmphasisText == null
+									|| questionEmphasisText == "") {
 								$.messager.alert("提示", "请先输入考点内容", "info");
 								return;
 							}
 
-							var writer = new ObjStory(null, questionText, "",
-									null, null, null, null);
-
 							$.post('${proPath}/question/insert.action', {
-								"questionContent" : writer
+								"questionText" : questionText,
+								"questionLevelId" : questionLevelId,
+								"questionTypeId" : questionTypeId,
+								"questionGradeId" : questionGradeId,
+								"questionChapterText" : questionChapterText,
+								"questionEmphasisText" : questionEmphasisText
 							}, function(data) {
 								if (data == "success") {
 									$.messager.alert("提示", "保存成功", "info");
 								} else {
-
 									if (data == "have") {
-										$.messager.alert("提示", "考点内容已存在",
+										$.messager.alert("提示", "题目已存在",
 												"info");
 									} else {
 										$.messager.alert("提示", "保存失败", "info");
@@ -89,26 +86,17 @@
 
 						});
 
-		function ObjStory(questionId, questionText, questionAnswer,
-				questionLevelId, questionTypeId, questionGradeId,
-				questionChapterId, questionEmphasisId, questionVersionId,
-				questionLevelText, questionTypeText, questionGradeText,
-				questionChapterText, questionEmphasisText, questionVersionText) {
-			this.questionId = questionId;
+		function ObjStory(questionText, questionLevelId, questionTypeId,
+				questionGradeId, questionTypeText, questionChapterText,
+				questionEmphasisText) {
 			this.questionText = questionText;
-			this.questionAnswer = questionAnswer;
 			this.questionLevelId = questionLevelId;
 			this.questionTypeId = questionTypeId;
 			this.questionGradeId = questionGradeId;
 			this.questionChapterId = questionChapterId;
-			this.questionEmphasisId = questionEmphasisId;
-			this.questionVersionId = questionVersionId;
-			this.questionLevelText = questionLevelText;
 			this.questionTypeText = questionTypeText;
-			this.questionGradeText = questionGradeText;
 			this.questionChapterText = questionChapterText;
 			this.questionEmphasisText = questionEmphasisText;
-			this.questionVersionText = questionVersionText;
 		}
 	});
 </script>

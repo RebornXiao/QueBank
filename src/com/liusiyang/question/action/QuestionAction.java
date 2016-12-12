@@ -24,6 +24,9 @@ import org.springframework.web.context.ContextLoader;
 
 import com.liusiyang.question.entity.Page;
 import com.liusiyang.question.entity.QuestionContent;
+import com.liusiyang.question.entity.QuestionText;
+import com.liusiyang.question.service.ChapterService;
+import com.liusiyang.question.service.EmphasisService;
 import com.liusiyang.question.service.QuestionService;
 import com.liusiyang.question.util.QuestionUtils;
 import org.apache.commons.io.FileUtils;
@@ -47,12 +50,21 @@ public class QuestionAction extends BaseAction {
 	@Resource
 	QuestionService questionService;
 
+	@Resource
+	EmphasisService emphasisService;
+
+	@Resource
+	ChapterService chapterService;
+
 	@RequestMapping(value = "/insert")
 	// @ResponseBody //如果返回json格式，需要这个注解，这里用来测试环境
-	public String insert(QuestionContent questionContent) {
+	public String insert(String questionText, Integer questionLevelId,
+			Integer questionTypeId, Integer questionGradeId,
+			String questionChapterText,
+			String questionEmphasisText) {
 		log.info("新增问题");
+		QuestionContent questionCon = new QuestionContent();
 		try {
-			String questionText = questionContent.getQuestionText();
 			Pattern p = Pattern.compile("\" src=\"(.*?)\" width=");
 			Matcher m = p.matcher(questionText);
 			while (m.find()) {
@@ -70,29 +82,31 @@ public class QuestionAction extends BaseAction {
 						"http://localhost:8080/qb/upload/" + f.getName());
 				log.info("上传地址:" + questionText);
 			}
-			questionContent.setQuestionText(questionText);
-			questionContent.setQuestionAnswer("");
-			questionContent.setQuestionTypeText(QuestionUtils
-					.getQueType(questionContent.getQuestionTypeId()));
-			questionContent.setQuestionLevelText(QuestionUtils
-					.getQueLevel(questionContent.getQuestionLevelId()));
-			questionContent.setQuestionGradeText(QuestionUtils
-					.getQueGrade(questionContent.getQuestionGradeId()));
-
-			questionContent.setQuestionVersionText("人教版");
-			questionContent.setQuestionVersionId(1);
-			questionContent.setQuestionChapterId(1);
-			questionContent.setQuestionChapterText(questionContent
-					.getQuestionChapterText());
-			questionContent.setQuestionEmphasisId(1);
-			questionContent.setQuestionEmphasisText(questionContent
-					.getQuestionEmphasisText());
-			log.info(questionContent.toString());
-			questionService.insert(questionContent);
+			questionCon.setQuestionText(questionText);
+			questionCon.setQuestionAnswer("");
+			questionCon.setQuestionTypeText(QuestionUtils
+					.getQueType(questionTypeId));
+			questionCon.setQuestionLevelText(QuestionUtils
+					.getQueLevel(questionLevelId));
+			questionCon.setQuestionGradeText(QuestionUtils
+					.getQueGrade(questionGradeId));
+			questionCon.setQuestionGradeId(questionGradeId);
+			questionCon.setQuestionLevelId(questionLevelId);
+			questionCon.setQuestionTypeId(questionTypeId);
+			questionCon.setQuestionVersionText("人教版");
+			questionCon.setQuestionVersionId(1);
+			questionCon.setQuestionChapterId(chapterService.getChapter(
+					questionChapterText).getChapterId());
+			questionCon.setQuestionChapterText(questionChapterText);
+			questionCon.setQuestionEmphasisId(emphasisService
+					.getEmphasisQuestion(questionEmphasisText).getEmphasisId());
+			questionCon.setQuestionEmphasisText(questionEmphasisText);
+			log.info(questionCon.toString());
+			questionService.insert(questionCon);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "forward:/base/goURL/question/addQuestion.action";
+		return "success";
 	}
 
 	private void upload(File upload, String realpath) throws IOException {
