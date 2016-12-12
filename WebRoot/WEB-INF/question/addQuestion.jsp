@@ -7,8 +7,9 @@
 <title>添加题目</title>
 <script type="text/javascript">
 	$(function() {
+		var editor;
 		window.onload = function() {
-			var editor = CKEDITOR.replace('questionText');
+			editor = CKEDITOR.replace('questionText');
 			CKFinder.setupCKEditor(editor, '/ckeditor/');
 		};
 
@@ -30,15 +31,26 @@
 				.bind(
 						"click",
 						function() {
-							var questionText = document
-									.getElementById("textques").value;
+							var questionText = editor.getData();
 							alert(questionText);
-							if (questionText == null && questionText == "") {
+							if (questionText == null || questionText == "") {
 								$.messager.alert("提示", "请先输入题目内容", "info");
 								return;
 							}
-							var check = $('input:radio:checked').val();
-							alert(check);
+							var questionLevelId = $(
+									'input:radio[name="questionLevelId"]:checked')
+									.val();
+							alert(questionLevelId);
+
+							var questionTypeId = $(
+									'input:radio[name="questionTypeId"]:checked')
+									.val();
+							alert(questionTypeId);
+
+							var questionGradeId = $(
+									'input:radio[name="questionGradeId"]:checked')
+									.val();
+							alert(questionGradeId);
 
 							var cc_chapter = $('#cc_chapter').combobox(
 									'getValue');

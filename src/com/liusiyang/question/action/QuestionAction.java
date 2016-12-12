@@ -34,12 +34,11 @@ import org.jdom.Namespace;
 import org.jdom.input.SAXBuilder;
 import org.xml.sax.InputSource;
 
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.io.StringReader;
+import java.util.List;
 
-import java.io.FileOutputStream;  
-import java.io.OutputStream;  
-import java.io.StringReader;  
-import java.util.List;  
-  
 @Controller
 @RequestMapping("/question")
 public class QuestionAction extends BaseAction {
@@ -83,9 +82,11 @@ public class QuestionAction extends BaseAction {
 			questionContent.setQuestionVersionText("人教版");
 			questionContent.setQuestionVersionId(1);
 			questionContent.setQuestionChapterId(1);
-			questionContent.setQuestionChapterText("有理数");
+			questionContent.setQuestionChapterText(questionContent
+					.getQuestionChapterText());
 			questionContent.setQuestionEmphasisId(1);
-			questionContent.setQuestionEmphasisText("努力买房");
+			questionContent.setQuestionEmphasisText(questionContent
+					.getQuestionEmphasisText());
 			log.info(questionContent.toString());
 			questionService.insert(questionContent);
 		} catch (Exception e) {
@@ -141,16 +142,15 @@ public class QuestionAction extends BaseAction {
 	public Object selectById(Integer questionId) {
 		return questionService.selectById(questionId);
 	}
-	
+
 	@RequestMapping("/selectByEmphasis")
 	@ResponseBody
-	public Object selectByEmphasis(Page<QuestionContent> page,QuestionContent questionContent) throws Exception {
+	public Object selectByEmphasis(Page<QuestionContent> page,
+			QuestionContent questionContent) throws Exception {
 		log.info("分页查询问题");
 		Page<QuestionContent> p = questionService.selectPage(page);
 		return p.getPageMap();
 	}
-	
-	
 
 	public List xmlElements(String xmlDoc) {
 		// 创建一个新的字符串
@@ -193,5 +193,4 @@ public class QuestionAction extends BaseAction {
 		return null;
 	}
 
-	
 }
