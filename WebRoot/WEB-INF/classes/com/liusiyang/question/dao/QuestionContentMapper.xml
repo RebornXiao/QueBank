@@ -87,6 +87,12 @@
 		#{questionId,jdbcType=INTEGER}
 	</select>
 
+	<select id="select" resultMap="questionResultMap" parameterType="java.lang.Integer">
+		select * from t_question_content
+		where question_id =
+		#{questionId,jdbcType=INTEGER}
+	</select>
+
 	<!-- 通过关键字分页查询, 返回数据集 -->
 	<select id="selectCount" resultType="Integer">
 		select count(1) from
@@ -100,6 +106,11 @@
 		#{start},#{rows}
 	</select>
 
+	<delete id="delete" parameterType="Integer">
+		delete from t_question_content
+		where question_id =
+		#{questionId,jdbcType=INTEGER}
+	</delete>
 
 	<!-- 通过关键字分页查询，返回总记录数 -->
 	<select id="selectPageCount" parameterType="page" resultType="Integer">

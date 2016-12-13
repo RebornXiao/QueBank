@@ -60,8 +60,7 @@ public class QuestionAction extends BaseAction {
 	// @ResponseBody //如果返回json格式，需要这个注解，这里用来测试环境
 	public String insert(String questionText, Integer questionLevelId,
 			Integer questionTypeId, Integer questionGradeId,
-			String questionChapterText,
-			String questionEmphasisText) {
+			String questionChapterText, String questionEmphasisText) {
 		log.info("新增问题");
 		QuestionContent questionCon = new QuestionContent();
 		try {
@@ -155,6 +154,27 @@ public class QuestionAction extends BaseAction {
 	@ResponseBody
 	public Object selectById(Integer questionId) {
 		return questionService.selectById(questionId);
+	}
+
+	@RequestMapping("/delete")
+	@ResponseBody
+	public String delete(Integer id) {
+		QuestionContent questionContent = null;
+		try {
+			questionContent = questionService.select(id);
+			if (questionContent == null) {
+				return "have";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		try {
+			questionService.delete(questionContent);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "fail";
+		}
+		return "success";
 	}
 
 	@RequestMapping("/selectByEmphasis")

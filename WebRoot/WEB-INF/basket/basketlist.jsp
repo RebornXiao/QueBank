@@ -47,7 +47,7 @@
 				alert("请先选择你要导出的试题篮");
 			} else {
 				var id = row['basketListId']
-				$.post('${proPath}/basket/outPrint.action', {
+				$.post('${proPath}/basket/insertTemp.action', {
 						"id" : id
 					}, function(data) {
 						if (data == "success") {

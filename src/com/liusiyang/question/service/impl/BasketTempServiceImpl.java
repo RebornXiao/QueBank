@@ -8,7 +8,4 @@ import com.liusiyang.question.service.BasketTempService;
 @Service("basketTempService")
 public class BasketTempServiceImpl extends BaseServiceImpl<BasketTemp>
 		implements BasketTempService {
-	public BasketTemp selectById(Integer id) {
-		return basketTempMapper.selectById(id);
-	}
 }

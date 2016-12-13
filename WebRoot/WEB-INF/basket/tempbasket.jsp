@@ -8,14 +8,15 @@
 	$(function() {
 
 		$('#questiontable').datagrid({
-			url : '${proPath}/basket/randomQuestion.action',
+			url : '${proPath}/basket/selectPageTemp.action',
+			title : '试题篮',
 			fitColumns : true,
 			nowrapL : true,
 			idField : 'questionId',
+			singleSelect : true,
 			rownumbers : true,
-			queryParams : {
-				num : '50'
-			},
+			pageSize : 50,
+			pageList : [ 50, 100, 200, 500 ],
 			columns : [ [ {
 				checkbox : true,
 			}, {
@@ -37,7 +38,30 @@
 				field : 'questionGradeText',
 				title : '年级',
 				width : 100
-			} ] ]
+			} ] ],
+			pagination : true,
+			rownumbers : true
+		});
+
+		$("#btnDelete").bind("click", function() {
+			var row = $("#questiontable").datagrid('getSelected');
+			if (row == null) {
+				alert("请先选择你要添加的试题");
+			} else {
+				var id = row['questionId'];
+				$.post('${proPath}/basket/deleteTemp.action', {
+					"id" : id
+				}, function(data) {
+					if (data == "success") {
+						$.messager.alert("提示", "删除成功", "info");
+						$('#questiontable').datagrid('load');
+					} else if (data == "have") {
+						$.messager.alert("提示", "这道题不存在,请刷新页面", "info");
+					} else {
+						$.messager.alert("提示", "删除失败", "info");
+					}
+				}, "text");
+			}
 		});
 	});
 </script>
@@ -45,7 +69,11 @@
 </head>
 
 <body>
-	<table id="questiontable" class="easyui-datagrid"></table>
-
+	<table id="questiontable" class="easyui-datagrid" toolbar="#toolbar"></table>
+	<!--列表工具栏 -->
+	<div id="toolbar" style="height:auto">
+		<a href="javascript:void(0);" class="easyui-linkbutton"
+			iconCls="icon-delete" plain="true" id="btnDelete">删除这道题</a>
+	</div>
 </body>
 </html>
