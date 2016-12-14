@@ -14,6 +14,7 @@
 			idField : 'questionId',
 			rownumbers : true,
 			pagination : true,
+			singleSelect : true,
 			pageSize : 50,
 			pageList : [ 50, 100, 200, 500 ],
 			columns : [ [ {
@@ -50,6 +51,47 @@
 			pagination : true,
 			rownumbers : true
 		});
+
+		$("#btnQuery").bind("click", function() {
+			var row = $("#questiontable").datagrid('getSelected');
+			if (row == null) {
+				alert("请先选择你要添加的试题");
+			} else {
+				var id = row['questionId']
+				$.post('${proPath}/basket/insertTemp.action', {
+					"id" : id
+				}, function(data) {
+					if (data == "success") {
+						$.messager.alert("提示", "添加成功", "info");
+					} else if (data == "have") {
+						$.messager.alert("提示", "这道题已经存在", "info");
+					} else {
+						$.messager.alert("提示", "添加失败", "info");
+					}
+				}, "text");
+			}
+		});
+
+		$("#btnDelete").bind("click", function() {
+			var row = $("#questiontable").datagrid('getSelected');
+			if (row == null) {
+				alert("请先选择你要添加的试题");
+			} else {
+				var id = row['questionId'];
+				$.post('${proPath}/question/delete.action', {
+					"id" : id
+				}, function(data) {
+					if (data == "success") {
+						$.messager.alert("提示", "删除成功", "info");
+						$('#questiontable').datagrid('load');
+					} else if (data == "have") {
+						$.messager.alert("提示", "这道题不存在,请刷新页面", "info");
+					} else {
+						$.messager.alert("提示", "删除失败", "info");
+					}
+				}, "text");
+			}
+		});
 	});
 </script>
 
@@ -57,8 +99,15 @@
 
 <body>
 
-	<table id="questiontable" class="easyui-datagrid">
+	<table id="questiontable" class="easyui-datagrid" toolbar="#toolbar">
 	</table>
+	<!--列表工具栏 -->
+	<div id="toolbar" style="height:auto">
+		<a href="javascript:void(0);" class="easyui-linkbutton"
+			iconCls="icon-add" plain="true" id="btnQuery">添加到试题篮</a> <a
+			href="javascript:void(0);" class="easyui-linkbutton"
+			iconCls="icon-delete" plain="true" id="btnDelete">删除这道题</a>
+	</div>
 
 
 </body>

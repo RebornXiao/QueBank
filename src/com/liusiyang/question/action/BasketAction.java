@@ -20,9 +20,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
 import com.liusiyang.question.entity.BasketList;
+import com.liusiyang.question.entity.BasketTemp;
 import com.liusiyang.question.entity.Page;
 import com.liusiyang.question.entity.QuestionContent;
 import com.liusiyang.question.service.BasketListService;
+import com.liusiyang.question.service.BasketTempService;
 import com.liusiyang.question.service.QuestionService;
 import com.liusiyang.question.util.WordTool;
 import com.lowagie.text.DocumentException;
@@ -38,6 +40,9 @@ public class BasketAction extends BaseAction {
 	@Resource
 	BasketListService basketListService;
 
+	@Resource
+	BasketTempService basketTempService;
+
 	/**
 	 * 随机题目
 	 * 
@@ -51,50 +56,13 @@ public class BasketAction extends BaseAction {
 		log.info("随即问题");
 		Integer count = questionService.getCount();
 		List<QuestionContent> list = new ArrayList<QuestionContent>();
-		// BasketList basketList = new BasketList();
-		// StringBuffer fillingsb = new StringBuffer();
-		// StringBuffer choosesb = new StringBuffer();
-		// StringBuffer explainsb = new StringBuffer();
-		// int number = 0;
 		for (int i = 0; i < num; i++) {
 			int id = 1 + (int) (Math.random() * count);
 			QuestionContent questionContent = questionService.selectById(id);
 			if (questionContent != null) {
-				// number++;
 				list.add(questionContent);
-				// if (questionContent.getQuestionTypeId() == 1) {
-				// fillingsb.append("," + questionContent.getQuestionId());
-				// } else if (questionContent.getQuestionTypeId() == 2) {
-				// choosesb.append("," + questionContent.getQuestionId());
-				// } else {
-				// explainsb.append("," + questionContent.getQuestionId());
-				// }
 			}
 		}
-		// if (fillingsb.toString().length() > 0) {
-		// basketList.setFillingNo(fillingsb.toString().substring(1,
-		// fillingsb.toString().length()));
-		//
-		// } else {
-		// basketList.setFillingNo("");
-		// }
-		//
-		// if (choosesb.toString().length() > 0) {
-		// basketList.setChooseNo(choosesb.toString().substring(1,
-		// choosesb.toString().length()));
-		//
-		// } else {
-		// basketList.setChooseNo("");
-		// }
-		//
-		// if (explainsb.toString().length() > 0) {
-		// basketList.setExplainNo(explainsb.toString().substring(1,
-		// explainsb.toString().length()));
-		// } else {
-		// basketList.setExplainNo("");
-		// }
-		// basketList.setQuestionNumbers(number);
-		// basketListService.insert(basketList);
 		return list;
 	}
 
@@ -187,6 +155,23 @@ public class BasketAction extends BaseAction {
 	}
 
 	// 通过关键字分页查询
+	@RequestMapping("/selectPageTemp")
+	@ResponseBody
+	public Object selectPageTemp(Page<BasketTemp> page) throws Exception {
+		log.info("分页查询问题");
+		Page<BasketTemp> p = basketTempService.selectPage(page);
+		return p.getPageMap();
+	}
+
+	// 通过关键字分页查询
+	@RequestMapping("/deleteTemp")
+	@ResponseBody
+	public String deleteTemp(Integer id) throws Exception {
+		basketTempService.delete(basketTempService.select(id));
+		return "success";
+	}
+
+	// 通过关键字分页查询
 	@RequestMapping("/outPrint")
 	@ResponseBody
 	public String outPrint(Integer id) throws Exception {
@@ -201,25 +186,28 @@ public class BasketAction extends BaseAction {
 		List<String> strings = new ArrayList<String>();
 		strings.clear();
 		strings.add("一、选择题");
-		
-		for (int i = 0,size = choose.length; i < size; i++) {
+
+		for (int i = 0, size = choose.length; i < size; i++) {
 			Integer questionId = Integer.parseInt(choose[i]);
-			QuestionContent questionContent = questionService.selectById(questionId);
-			strings.add((i+1)+"、"+questionContent.getQuestionText());
+			QuestionContent questionContent = questionService
+					.selectById(questionId);
+			strings.add((i + 1) + "、" + questionContent.getQuestionText());
 		}
 		strings.add("二、填空题");
-		for (int i = 0,size = filling.length; i < size; i++) {
+		for (int i = 0, size = filling.length; i < size; i++) {
 			Integer questionId = Integer.parseInt(filling[i]);
-			QuestionContent questionContent = questionService.selectById(questionId);
-			strings.add((i+1)+"、"+questionContent.getQuestionText());
+			QuestionContent questionContent = questionService
+					.selectById(questionId);
+			strings.add((i + 1) + "、" + questionContent.getQuestionText());
 		}
 		strings.add("三、解答题");
-		for (int i = 0,size = explain.length; i < size; i++) {
+		for (int i = 0, size = explain.length; i < size; i++) {
 			Integer questionId = Integer.parseInt(explain[i]);
-			QuestionContent questionContent = questionService.selectById(questionId);
-			strings.add((i+1)+"、"+questionContent.getQuestionText());
+			QuestionContent questionContent = questionService
+					.selectById(questionId);
+			strings.add((i + 1) + "、" + questionContent.getQuestionText());
 		}
-		
+
 		JFileChooser fileChooser = new JFileChooser("D:\\");
 		fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		int returnVal = fileChooser.showOpenDialog(fileChooser);
@@ -236,6 +224,28 @@ public class BasketAction extends BaseAction {
 				e.printStackTrace();
 			}
 		}
+		return "success";
+	}
+
+	// 通过关键字分页查询
+	@RequestMapping("/insertTemp")
+	@ResponseBody
+	public String insertTemp(Integer id) {
+		try {
+			if (basketTempService.select(id) != null) {
+				return "have";
+			}
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		try {
+			basketTempService
+					.insert(new BasketTemp(questionService.select(id)));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "fail";
+		}
+
 		return "success";
 	}
 }

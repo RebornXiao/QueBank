@@ -78,8 +78,8 @@ public class BaseServiceImpl<T> implements BaseService<T> {
 		return baseMapper.update(entity);
 	}
 
-	public int delete(T entity) throws Exception {
-		return baseMapper.delete(entity);
+	public int delete(Integer id) throws Exception {
+		return baseMapper.delete(id);
 	}
 
 	public int deleteList(String[] pks) throws Exception {

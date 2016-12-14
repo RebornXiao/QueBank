@@ -12,11 +12,11 @@ public interface BaseMapper<T> {
 	public int update(T entity);
 
 	// 删除单个对象
-	public int delete(T entity);
+	public int delete(Integer id);
 
 	// 通过主键（数组）批量删除数据
 	public int deleteList(String[] pks);
-	
+
 	public List<T> selectAll();
 
 	// 查询单个对象

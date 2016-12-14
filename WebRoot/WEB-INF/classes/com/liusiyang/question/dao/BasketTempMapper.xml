@@ -28,15 +28,16 @@
 			property="questionVersionText" />
 	</resultMap>
 
-	<select id="selectById" resultMap="BaseResultMap"
-		parameterType="java.lang.Integer">
+	<select id="select" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select * from t_basket_temp
 		where question_id =
 		#{questionId,jdbcType=INTEGER}
 	</select>
-	
+
 	<insert id="insert" parameterType="com.liusiyang.question.entity.BasketTemp">
-		insert into t_basket_temp ( question_text, question_answer,
+		insert into t_basket_temp (
+		question_id,
+		question_text, question_answer,
 		question_level_id,
 		question_type_id,
 		question_grade_id,
@@ -49,7 +50,8 @@
 		question_version_text
 		)
 		values
-		( #{questionText,jdbcType=VARCHAR},
+		(#{questionId,jdbcType=INTEGER},
+		#{questionText,jdbcType=VARCHAR},
 		#{questionAnswer,jdbcType=VARCHAR},
 		#{questionLevelId,jdbcType=INTEGER},
 		#{questionTypeId,jdbcType=INTEGER},
@@ -65,7 +67,12 @@
 		#{questionVersionText,jdbcType=VARCHAR}
 		)
 	</insert>
-
+	
+	<delete id="delete" parameterType="Integer">
+		delete from t_basket_temp
+		where question_id =
+		#{questionId,jdbcType=INTEGER}
+	</delete>
 
 	<!-- 通过关键字分页查询, 返回数据集 -->
 	<select id="selectPageList" parameterType="page" resultMap="BaseResultMap">
@@ -76,6 +83,19 @@
 
 	<!-- 通过关键字分页查询，返回总记录数 -->
 	<select id="selectPageCount" parameterType="page" resultType="Integer">
+		select count(1) from t_basket_temp
+	</select>
+
+	<!-- 通过多条件分页查询，返回数据集 -->
+	<select id="selectPageListUseDyc" parameterType="page"
+		resultMap="BaseResultMap">
+		select * from t_basket_temp
+		limit #{start},#{rows}
+	</select>
+
+	<!-- 通过多条件分页查询，返回总记录数 -->
+	<select id="selectPageCountUseDyc" parameterType="page"
+		resultType="Integer">
 		select count(1) from t_basket_temp
 	</select>
 
