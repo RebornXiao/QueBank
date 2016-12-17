@@ -10,7 +10,7 @@ public interface BaseService<T> {
 
 	public int update(T entity) throws Exception;
 
-	public int delete(T entity) throws Exception;
+	public int delete(Integer id) throws Exception;
 
 	public T select(Integer id) throws Exception;
 

@@ -57,7 +57,7 @@ public class QuestionAction extends BaseAction {
 	ChapterService chapterService;
 
 	@RequestMapping(value = "/insert")
-	// @ResponseBody //如果返回json格式，需要这个注解，这里用来测试环境
+	@ResponseBody	// 如果返回json格式，需要这个注解，这里用来测试环境
 	public String insert(String questionText, Integer questionLevelId,
 			Integer questionTypeId, Integer questionGradeId,
 			String questionChapterText, String questionEmphasisText) {
@@ -169,7 +169,7 @@ public class QuestionAction extends BaseAction {
 			e.printStackTrace();
 		}
 		try {
-			questionService.delete(questionContent);
+			questionService.delete(id);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "fail";
@@ -177,12 +177,13 @@ public class QuestionAction extends BaseAction {
 		return "success";
 	}
 
-	@RequestMapping("/selectByEmphasis")
+	@RequestMapping("/selectPageListUseDyc")
 	@ResponseBody
 	public Object selectByEmphasis(Page<QuestionContent> page,
 			QuestionContent questionContent) throws Exception {
 		log.info("分页查询问题");
-		Page<QuestionContent> p = questionService.selectPage(page);
+		page.setParamEntity(questionContent);
+		Page<QuestionContent> p = questionService.selectPageUseDyc(page);
 		return p.getPageMap();
 	}
 

@@ -75,7 +75,7 @@
 		$("#btnDelete").bind("click", function() {
 			var row = $("#questiontable").datagrid('getSelected');
 			if (row == null) {
-				alert("请先选择你要添加的试题");
+				alert("请先选择你要删除的试题");
 			} else {
 				var id = row['questionId'];
 				$.post('${proPath}/question/delete.action', {

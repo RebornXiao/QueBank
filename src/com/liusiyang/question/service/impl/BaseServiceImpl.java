@@ -101,9 +101,11 @@ public class BaseServiceImpl<T> implements BaseService<T> {
 		page.setTotalRecord(baseMapper.selectPageCountUseDyc(page));
 		return page;
 	}
+	
 
 	public List<T> getAll() throws Exception {
 		return baseMapper.selectAll();
 	}
+
 
 }

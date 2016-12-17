@@ -2,6 +2,7 @@ package com.liusiyang.question.service.impl;
 
 import org.springframework.stereotype.Service;
 
+import com.liusiyang.question.entity.Page;
 import com.liusiyang.question.entity.QuestionContent;
 import com.liusiyang.question.service.QuestionService;
 

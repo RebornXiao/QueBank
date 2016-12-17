@@ -122,12 +122,30 @@
 	<select id="selectPageListUseDyc" parameterType="page"
 		resultMap="questionResultMap">
 		select * from t_question_content
+		<where>
+			<if test="paramEntity.questionEmphasisText!=null">and question_emphasis_text like
+				#{paramEntity.questionEmphasisText}
+			</if>
+			<if test="paramEntity.questionChapterText!=null">and question_chapter_text like
+				#{paramEntity.questionChapterText}
+			</if>
+		</where>
 		limit #{start},#{rows}
 	</select>
+	
 	<!-- 通过多条件分页查询，返回总记录数 -->
 	<select id="selectPageCountUseDyc" parameterType="page"
 		resultType="Integer">
 		select count(1) from t_question_content
+		<where>
+			<if test="paramEntity.questionEmphasisText!=null">and question_emphasis_text like
+				#{paramEntity.questionEmphasisText}
+			</if>
+			<if test="paramEntity.questionChapterText!=null">and question_chapter_text like
+				#{paramEntity.questionChapterText}
+			</if>
+		</where>
 	</select>
+
 
 </mapper>

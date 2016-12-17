@@ -48,7 +48,7 @@
 									.val();
 							var questionChapterText = $('#cc_chapter')
 									.combobox('getText');
-							alert(questionChapterText);
+							//alert(questionChapterText);
 							if (questionChapterText == null
 									|| questionChapterText == "") {
 								$.messager.alert("提示", "请先输入章节内容", "info");
@@ -57,7 +57,7 @@
 
 							var questionEmphasisText = $('#cc_emphasis')
 									.combobox('getText');
-							alert(questionEmphasisText);
+							//alert(questionEmphasisText);
 							if (questionEmphasisText == null
 									|| questionEmphasisText == "") {
 								$.messager.alert("提示", "请先输入考点内容", "info");

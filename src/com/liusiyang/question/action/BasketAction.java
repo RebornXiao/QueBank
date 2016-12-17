@@ -163,11 +163,10 @@ public class BasketAction extends BaseAction {
 		return p.getPageMap();
 	}
 
-	// 通过关键字分页查询
 	@RequestMapping("/deleteTemp")
 	@ResponseBody
 	public String deleteTemp(Integer id) throws Exception {
-		basketTempService.delete(basketTempService.select(id));
+		basketTempService.delete(id);
 		return "success";
 	}
 
