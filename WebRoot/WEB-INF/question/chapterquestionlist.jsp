@@ -7,7 +7,7 @@
 <script type="text/javascript">
 	$(function() {
 		$('#cc_emphasis').combobox({
-			url : '${proPath}/emphasis/selectAll.action',
+			url : '${proPath}/chapter/selectAll.action',
 			valueField : 'id',
 			textField : 'text',
 			onSelect : onCCselect,
@@ -15,9 +15,9 @@
 		});
 
 		function onCCselect() {
-			var questionEmphasisText = $('#cc_emphasis').combobox('getText');
+			var questionChapterText = $('#cc_emphasis').combobox('getText');
 			$('#questiontable').datagrid('load', {
-				questionEmphasisText : questionEmphasisText,
+				questionChapterText : questionChapterText,
 				questionTypeId : questionTypeId,
 				questionLevelId : questionLevelId,
 			});

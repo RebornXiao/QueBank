@@ -15,13 +15,13 @@
 		(#{chapterContent,jdbcType=VARCHAR}
 		)
 	</insert>
-	
+
 	<!-- 通过关键字分页查询, 返回数据集 -->
 	<select id="selectAll" resultMap="chapterResultMap">
 		select * from
 		t_chapter_question
 	</select>
-	
+
 	<update id="update" parameterType="com.liusiyang.question.entity.ChapterQuestion">
 		insert into t_chapter_question
 		(chapter_content
@@ -44,6 +44,21 @@
 		select * from t_chapter_question
 		where chapter_content like
 		(#{chapterContent,jdbcType=VARCHAR})
+	</select>
+
+	<!-- 通过多条件分页查询，返回数据集 -->
+	<select id="selectPageListUseDyc" parameterType="page"
+		resultMap="supplierResultMap">
+		select * from t_chapter_question
+		
+		limit #{start},#{rows}
+	</select>
+
+	<!-- 通过多条件分页查询，返回总记录数 -->
+	<select id="selectPageCountUseDyc" parameterType="page"
+		resultType="Integer">
+		select count(1) from t_chapter_question
+		
 	</select>
 
 </mapper>

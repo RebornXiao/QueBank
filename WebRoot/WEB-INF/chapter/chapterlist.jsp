@@ -9,35 +9,23 @@
 	$(function() {
 
 		$('#questiontable').datagrid({
-			url : '${proPath}/question/selectPage.action',
+			url : '${proPath}/chapter/selectPageByNum.action',
 			fitColumns : true,
 			nowrapL : true,
-			idField : 'questionId',
+			idField : 'chapterId',
 			rownumbers : true,
 			pagination : true,
 			pageSize : 1,
-			pageList : [ 1, 2, 4, 8 ],
+			pageList : [ 5, 10, 20, 50 ],
 			columns : [ [ {
 				checkbox : true,
 			}, {
-				field : 'questionId',
+				field : 'chapterId',
 				title : '题目编号'
 			}, {
-				field : 'questionText',
-				title : '题目内容',
-				width : 100
-			}, {
-				field : 'questionAnswer',
-				title : '答案',
-				width : 100
-			}, {
-				field : 'questionLevelText',
-				title : '难度',
-				width : 100
-			}, {
-				field : 'questionGradeText',
-				title : '年级',
-				width : 100
+				field : 'chapterContent',
+				title : '章节内容',
+				width : 150
 			} ] ]
 		});
 	});
@@ -46,7 +34,6 @@
 </head>
 
 <body>
-
 
 	<table id="questiontable" class="easyui-datagrid"></table>
 </body>

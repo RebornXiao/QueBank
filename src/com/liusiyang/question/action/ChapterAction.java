@@ -77,6 +77,25 @@ public class ChapterAction extends BaseAction {
 		return p.getPageMap();
 	}
 
+	// 分页查询
+	@RequestMapping("/selectPageByNum")
+	@ResponseBody
+	public Object selectPageByNum(Page<ChapterQuestion> page) throws Exception {
+		System.out.println("新的请求开始了！");
+		// page.setPage(1);
+		// page.setRows(2);
+		// page.setStart(1);
+
+		Page<ChapterQuestion> p = chapterService.selectPage(page);
+		// supplier.setSupName("supName1");
+		/*
+		 * Map<String, Object> map =new HashMap<String, Object>();
+		 * map.put("total",p.getTotalRecord()); map.put("rows",p.getList());
+		 */
+
+		return p.getPageMap();
+	}
+
 	// 通过关键字分页查询
 	@RequestMapping("/selectAll")
 	@ResponseBody
