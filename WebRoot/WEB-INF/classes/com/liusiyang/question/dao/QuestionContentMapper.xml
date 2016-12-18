@@ -129,6 +129,14 @@
 			<if test="paramEntity.questionChapterText!=null">and question_chapter_text like
 				#{paramEntity.questionChapterText}
 			</if>
+			
+			<if test="paramEntity.questionLevelId!=null">and question_level_id like
+				#{paramEntity.questionLevelId}
+			</if>
+			
+			<if test="paramEntity.questionTypeId!=null">and question_type_id like
+				#{paramEntity.questionTypeId}
+			</if>
 		</where>
 		limit #{start},#{rows}
 	</select>
@@ -143,6 +151,14 @@
 			</if>
 			<if test="paramEntity.questionChapterText!=null">and question_chapter_text like
 				#{paramEntity.questionChapterText}
+			</if>
+			
+			<if test="paramEntity.questionLevelId!=null">and question_level_id like
+				#{paramEntity.questionLevelId}
+			</if>
+			
+			<if test="paramEntity.questionTypeId!=null">and question_type_id like
+				#{paramEntity.questionTypeId}
 			</if>
 		</where>
 	</select>
