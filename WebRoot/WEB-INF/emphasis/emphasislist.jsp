@@ -4,11 +4,28 @@
 <html>
 <head>
 
+
 <script type="text/javascript">
-	
 	$(function() {
-		$('#tt').etree({
-			url : '${proPath}/emphasis/getAllTypeTree.action',
+		$('#questiontable').datagrid({
+			url : '${proPath}/emphasis/selectPage.action',
+			fitColumns : true,
+			nowrapL : true,
+			idField : 'emphasisId',
+			rownumbers : true,
+			pagination : true,
+			pageSize : 20,
+			pageList : [ 20, 50, 100, 200 ],
+			columns : [ [ {
+				checkbox : true,
+			}, {
+				field : 'emphasisId',
+				title : '题目编号'
+			}, {
+				field : 'emphasisContent',
+				title : '章节内容',
+				width : 150
+			} ] ]
 		});
 	});
 </script>
@@ -17,7 +34,6 @@
 
 <body>
 
-	<ul id="tt"></ul>
-
+	<table id="questiontable" class="easyui-datagrid" ></table>
 </body>
 </html>

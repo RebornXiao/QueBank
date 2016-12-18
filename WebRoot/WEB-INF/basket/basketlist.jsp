@@ -15,8 +15,8 @@
 			singleSelect : true,
 			rownumbers : true,
 			pagination : true,
-			pageSize : 50,
-			pageList : [ 50, 100, 200, 500 ],
+			pageSize : 25,
+			pageList : [ 25, 40, 100, 200 ],
 			columns : [ [ {
 				checkbox : true,
 			}, {
@@ -26,7 +26,7 @@
 				field : 'questionNumbers',
 				title : '题目个数',
 				width : 100
-			}, {}, {
+			}, {
 				field : 'fillingNo',
 				title : '选择题',
 				width : 250
@@ -47,7 +47,7 @@
 				alert("请先选择你要导出的试题篮");
 			} else {
 				var id = row['basketListId']
-				$.post('${proPath}/basket/insertTemp.action', {
+				$.post('${proPath}/basket/outPrint.action', {
 						"id" : id
 					}, function(data) {
 						if (data == "success") {

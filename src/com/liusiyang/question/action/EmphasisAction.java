@@ -55,18 +55,7 @@ public class EmphasisAction extends BaseAction {
 	@ResponseBody
 	public Object selectPage(Page<EmphasisQuestion> page,
 			EmphasisQuestion emphasisQuestion) throws Exception {
-		// page.setPage(1);
-		// page.setRows(2);
-		// page.setStart(1);
-
 		Page<EmphasisQuestion> p = emphasisService.selectPage(page);
-		System.out.println("----page:" + page);
-		// supplier.setSupName("supName1");
-		/*
-		 * Map<String, Object> map =new HashMap<String, Object>();
-		 * map.put("total",p.getTotalRecord()); map.put("rows",p.getList());
-		 */
-
 		return p.getPageMap();
 	}
 

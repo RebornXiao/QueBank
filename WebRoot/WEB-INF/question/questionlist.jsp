@@ -7,7 +7,7 @@
 <script type="text/javascript">
 	$(function() {
 		$('#questiontable').datagrid({
-			url : '${proPath}/question/selectPage.action',
+			url : '${proPath}/question/selectPageListUseDyc.action',
 			title : '题目列表',
 			fitColumns : true,
 			nowrapL : true,

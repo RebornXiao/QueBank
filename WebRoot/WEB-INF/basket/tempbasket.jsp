@@ -46,7 +46,7 @@
 		$("#btnDelete").bind("click", function() {
 			var row = $("#questiontable").datagrid('getSelected');
 			if (row == null) {
-				alert("请先选择你要添加的试题");
+				alert("请先选择你要删除的试题");
 			} else {
 				var id = row['questionId'];
 				$.post('${proPath}/basket/deleteTemp.action', {
@@ -63,6 +63,22 @@
 				}, "text");
 			}
 		});
+
+		$("#btnQuery").bind("click", function() {
+
+			$.post('${proPath}/basket/tempInsert.action', {
+			}, function(data) {
+				if (data == "success") {
+					$('#questiontable').datagrid('load');
+					$.messager.alert("提示", "添加成功", "info");
+				} else if (data == "no") {
+					$.messager.alert("提示", "请先添加题目到试题篮", "info");
+				} else {
+					$.messager.alert("提示", "添加失败", "info");
+				}
+			}, "text");
+
+		});
 	});
 </script>
 
@@ -73,6 +89,8 @@
 	<!--列表工具栏 -->
 	<div id="toolbar" style="height:auto">
 		<a href="javascript:void(0);" class="easyui-linkbutton"
+			iconCls="icon-add" plain="true" id="btnQuery">存为试题篮</a> <a
+			href="javascript:void(0);" class="easyui-linkbutton"
 			iconCls="icon-delete" plain="true" id="btnDelete">删除这道题</a>
 	</div>
 </body>

@@ -67,13 +67,21 @@
 		#{questionVersionText,jdbcType=VARCHAR}
 		)
 	</insert>
-	
+
+	<delete id="clear" parameterType="Integer">
+		delete from t_basket_temp		
+	</delete>
+
 	<delete id="delete" parameterType="Integer">
 		delete from t_basket_temp
 		where question_id =
 		#{questionId,jdbcType=INTEGER}
 	</delete>
 
+	<!-- 通过关键字分页查询, 返回数据集 -->
+	<select id="selectAll"  resultMap="BaseResultMap">
+		select * from t_basket_temp		
+	</select>
 	<!-- 通过关键字分页查询, 返回数据集 -->
 	<select id="selectPageList" parameterType="page" resultMap="BaseResultMap">
 		select * from t_basket_temp

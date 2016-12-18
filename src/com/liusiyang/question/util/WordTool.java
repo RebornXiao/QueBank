@@ -54,9 +54,9 @@ public class WordTool {
 					new StringReader(strings.get(i)), ss);
 			// addContent(document, bfChinese, strings.get(i));
 			if (htmlList != null && htmlList.size() > 0) {
-				for (int j = 0, size2 = htmlList.size(); j < size; j++) {
+				for (int j = 0, size2 = htmlList.size(); j < size2; j++) {
 					com.lowagie.text.Element e = (com.lowagie.text.Element) htmlList
-							.get(i);
+							.get(j);
 					context.add(e);
 				}
 			}
@@ -66,10 +66,8 @@ public class WordTool {
 		// addTable(document, bfChinese);
 		document.add(new Paragraph("\n"));
 		// 添加图片
-
 		document.close();
 	}
-
 	// 添加标题
 	private void addTitle(Document document, BaseFont bfChinese, String titleStr)
 			throws DocumentException {

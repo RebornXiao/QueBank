@@ -37,6 +37,10 @@
 		limit
 		#{start},#{rows}
 	</select>
+	<!-- 通过多条件分页查询，返回总记录数 -->
+	<select id="selectPageCount" parameterType="page" resultType="Integer">
+		select count(1) from t_emphasis_question
+	</select>
 
 	<!-- 通过关键字分页查询, 返回数据集 -->
 	<select id="selectEmphasis" parameterType="Integer" resultMap="emphasisResultMap">

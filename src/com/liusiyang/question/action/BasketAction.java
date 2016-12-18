@@ -88,23 +88,68 @@ public class BasketAction extends BaseAction {
 	 * @return
 	 * @throws Exception
 	 */
+	@RequestMapping("/clear")
+	@ResponseBody
+	public String clear() throws Exception {
+		basketTempService.clear();
+		return "success";
+	}
+
+	/**
+	 * 插入试题篮
+	 * 
+	 * @param page
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping("/insert")
 	@ResponseBody
 	public String insert(String listData) throws Exception {
 		log.info(listData.toString());
 		List<QuestionContent> list = JSON.parseArray(listData,
 				QuestionContent.class);
-		int length = list.size();
-		log.info("得到数据:" + length);
-		// List<QuestionContent> list = new ArrayList<QuestionContent>();//
-		// Arrays.asList(listData);
-		BasketList basketList = new BasketList();
-		StringBuffer fillingsb = new StringBuffer();
-		StringBuffer choosesb = new StringBuffer();
-		StringBuffer explainsb = new StringBuffer();
-		int num = 0;
-		if (listData != null && list.size() > 0) {
-			num = list.size();
+		insertBasket(list);
+		return "success";
+	}
+
+	/**
+	 * 插入试题篮
+	 * 
+	 * @param page
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/tempInsert")
+	@ResponseBody
+	public String tempInsert() throws Exception {
+		List<BasketTemp> basketTemps = basketTempService.getAll();
+		if (basketTemps != null && basketTemps.size() > 0) {
+			List<QuestionContent> list = new ArrayList<QuestionContent>();
+			list.clear();
+			for (int i = 0, size = basketTemps.size(); i < size; i++) {
+				QuestionContent questionContent = new QuestionContent(
+						basketTemps.get(i));
+				list.add(questionContent);
+			}
+			insertBasket(list);
+			basketTempService.clear();
+		} else {
+			return "no";
+		}
+		return "success";
+	}
+
+	private String insertBasket(List<QuestionContent> list) {
+		if (list != null && list.size() > 0) {
+			int length = list.size();
+			log.info("得到数据:" + length);
+			// List<QuestionContent> list = new ArrayList<QuestionContent>();//
+			// Arrays.asList(listData);
+			BasketList basketList = new BasketList();
+			StringBuffer fillingsb = new StringBuffer();
+			StringBuffer choosesb = new StringBuffer();
+			StringBuffer explainsb = new StringBuffer();
+			int num = list.size();
 			for (int i = 0; i < num; i++) {
 				QuestionContent questionContent = list.get(i);
 				if (questionContent.getQuestionTypeId() == 1) {
@@ -138,11 +183,16 @@ public class BasketAction extends BaseAction {
 				basketList.setExplainNo("");
 			}
 			basketList.setQuestionNumbers(num);
-			basketListService.insert(basketList);
+			try {
+				basketListService.insert(basketList);
+			} catch (Exception e) {
+				e.printStackTrace();
+				return "fail";
+			}
+			return "success";
 		} else {
-
+			return "fail";
 		}
-		return "success";
 	}
 
 	// 通过关键字分页查询
@@ -185,26 +235,32 @@ public class BasketAction extends BaseAction {
 		List<String> strings = new ArrayList<String>();
 		strings.clear();
 		strings.add("一、选择题");
-
-		for (int i = 0, size = choose.length; i < size; i++) {
-			Integer questionId = Integer.parseInt(choose[i]);
-			QuestionContent questionContent = questionService
-					.selectById(questionId);
-			strings.add((i + 1) + "、" + questionContent.getQuestionText());
+		if (choose != null && choose.length > 0) {
+			for (int i = 0, size = choose.length; i < size; i++) {
+				Integer questionId = Integer.parseInt(choose[i]);
+				QuestionContent questionContent = questionService
+						.selectById(questionId);
+				strings.add((i + 1) + "、" + questionContent.getQuestionText());
+			}
 		}
+
 		strings.add("二、填空题");
-		for (int i = 0, size = filling.length; i < size; i++) {
-			Integer questionId = Integer.parseInt(filling[i]);
-			QuestionContent questionContent = questionService
-					.selectById(questionId);
-			strings.add((i + 1) + "、" + questionContent.getQuestionText());
+		if (filling != null && filling.length > 1) {
+			for (int i = 0, size = filling.length; i < size; i++) {
+				Integer questionId = Integer.parseInt(filling[i]);
+				QuestionContent questionContent = questionService
+						.selectById(questionId);
+				strings.add((i + 1) + "、" + questionContent.getQuestionText());
+			}
 		}
 		strings.add("三、解答题");
-		for (int i = 0, size = explain.length; i < size; i++) {
-			Integer questionId = Integer.parseInt(explain[i]);
-			QuestionContent questionContent = questionService
-					.selectById(questionId);
-			strings.add((i + 1) + "、" + questionContent.getQuestionText());
+		if (explain != null && explain.length > 1) {
+			for (int i = 0, size = explain.length; i < size; i++) {
+				Integer questionId = Integer.parseInt(explain[i]);
+				QuestionContent questionContent = questionService
+						.selectById(questionId);
+				strings.add((i + 1) + "、" + questionContent.getQuestionText());
+			}
 		}
 
 		JFileChooser fileChooser = new JFileChooser("D:\\");

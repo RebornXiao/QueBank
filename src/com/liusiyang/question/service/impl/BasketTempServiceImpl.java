@@ -8,4 +8,9 @@ import com.liusiyang.question.service.BasketTempService;
 @Service("basketTempService")
 public class BasketTempServiceImpl extends BaseServiceImpl<BasketTemp>
 		implements BasketTempService {
+
+	public void clear() {
+		basketTempMapper.clear();
+		
+	}
 }

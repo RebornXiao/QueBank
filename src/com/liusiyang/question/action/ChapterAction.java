@@ -32,6 +32,7 @@ import com.sun.org.apache.regexp.internal.recompile;
 @RequestMapping("/chapter")
 public class ChapterAction extends BaseAction {
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
+
 	@Resource
 	ChapterService chapterService;
 
@@ -63,17 +64,8 @@ public class ChapterAction extends BaseAction {
 	public Object selectPage(Page<ChapterQuestion> page,
 			ChapterQuestion chapterQuestion) throws Exception {
 		System.out.println("分页查询章节");
-		// page.setPage(1);
-		// page.setRows(2);
-		// page.setStart(1);
 		page.setParamEntity(chapterQuestion);
 		Page<ChapterQuestion> p = chapterService.selectPage(page);
-		// supplier.setSupName("supName1");
-		/*
-		 * Map<String, Object> map =new HashMap<String, Object>();
-		 * map.put("total",p.getTotalRecord()); map.put("rows",p.getList());
-		 */
-
 		return p.getPageMap();
 	}
 
@@ -81,19 +73,7 @@ public class ChapterAction extends BaseAction {
 	@RequestMapping("/selectPageByNum")
 	@ResponseBody
 	public Object selectPageByNum(Page<ChapterQuestion> page) throws Exception {
-		System.out.println("新的请求开始了！");
-		// page.setPage(1);
-		// page.setRows(2);
-		// page.setStart(1);
-		ChapterQuestion chapterQuestion = new ChapterQuestion();
-		page.setParamEntity(chapterQuestion);
 		Page<ChapterQuestion> p = chapterService.selectPage(page);
-		// supplier.setSupName("supName1");
-		/*
-		 * Map<String, Object> map =new HashMap<String, Object>();
-		 * map.put("total",p.getTotalRecord()); map.put("rows",p.getList());
-		 */
-
 		return p.getPageMap();
 	}
 

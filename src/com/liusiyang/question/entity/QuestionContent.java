@@ -33,7 +33,23 @@ public class QuestionContent implements Serializable {
 
 	private String questionVersionText;
 	
-	
+	public QuestionContent(BasketTemp questionContent) {
+		questionId = questionContent.getQuestionId();
+		questionText = questionContent.getQuestionText();
+		questionAnswer = questionContent.getQuestionAnswer();
+		questionLevelId = questionContent.getQuestionLevelId();
+		questionTypeId = questionContent.getQuestionTypeId();
+		questionGradeId = questionContent.getQuestionGradeId();
+		questionChapterId = questionContent.getQuestionChapterId();
+		questionEmphasisId = questionContent.getQuestionEmphasisId();
+		questionVersionId = questionContent.getQuestionVersionId();
+		questionLevelText = questionContent.getQuestionLevelText();
+		questionTypeText = questionContent.getQuestionTypeText();
+		questionGradeText = questionContent.getQuestionGradeText();
+		questionChapterText = questionContent.getQuestionChapterText();
+		questionEmphasisText = questionContent.getQuestionEmphasisText();
+		questionVersionText = questionContent.getQuestionVersionText();
+	}
 
 	public QuestionContent() {
 		super();
