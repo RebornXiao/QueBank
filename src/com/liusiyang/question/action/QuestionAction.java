@@ -146,6 +146,8 @@ public class QuestionAction extends BaseAction {
 	@ResponseBody
 	public Object selectPage(Page<QuestionContent> page) throws Exception {
 		log.info("分页查询问题");
+		QuestionContent questionContent = new QuestionContent();
+		page.setParamEntity(questionContent);
 		Page<QuestionContent> p = questionService.selectPage(page);
 		return p.getPageMap();
 	}
@@ -181,7 +183,7 @@ public class QuestionAction extends BaseAction {
 	@ResponseBody
 	public Object selectByEmphasis(Page<QuestionContent> page,
 			QuestionContent questionContent) throws Exception {
-		log.info("分页查询问题");
+		log.info("条件分页查询问题");
 		page.setParamEntity(questionContent);
 		Page<QuestionContent> p = questionService.selectPageUseDyc(page);
 		return p.getPageMap();

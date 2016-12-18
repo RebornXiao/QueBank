@@ -105,6 +105,11 @@
 		limit
 		#{start},#{rows}
 	</select>
+	
+	<!-- 通过关键字分页查询，返回总记录数 -->
+	<select id="selectPageCount" parameterType="page" resultType="Integer">
+		select count(1) from t_question_content
+	</select>
 
 	<delete id="delete" parameterType="Integer">
 		delete from t_question_content
@@ -112,10 +117,6 @@
 		#{questionId,jdbcType=INTEGER}
 	</delete>
 
-	<!-- 通过关键字分页查询，返回总记录数 -->
-	<select id="selectPageCount" parameterType="page" resultType="Integer">
-		select count(1) from t_question_content
-	</select>
 
 
 	<!-- 通过多条件分页查询，返回数据集 -->
@@ -129,18 +130,18 @@
 			<if test="paramEntity.questionChapterText!=null">and question_chapter_text like
 				#{paramEntity.questionChapterText}
 			</if>
-			
+
 			<if test="paramEntity.questionLevelId!=null">and question_level_id like
 				#{paramEntity.questionLevelId}
 			</if>
-			
+
 			<if test="paramEntity.questionTypeId!=null">and question_type_id like
 				#{paramEntity.questionTypeId}
 			</if>
 		</where>
 		limit #{start},#{rows}
 	</select>
-	
+
 	<!-- 通过多条件分页查询，返回总记录数 -->
 	<select id="selectPageCountUseDyc" parameterType="page"
 		resultType="Integer">
@@ -152,11 +153,11 @@
 			<if test="paramEntity.questionChapterText!=null">and question_chapter_text like
 				#{paramEntity.questionChapterText}
 			</if>
-			
+
 			<if test="paramEntity.questionLevelId!=null">and question_level_id like
 				#{paramEntity.questionLevelId}
 			</if>
-			
+
 			<if test="paramEntity.questionTypeId!=null">and question_type_id like
 				#{paramEntity.questionTypeId}
 			</if>

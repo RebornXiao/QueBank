@@ -62,11 +62,11 @@ public class ChapterAction extends BaseAction {
 	@ResponseBody
 	public Object selectPage(Page<ChapterQuestion> page,
 			ChapterQuestion chapterQuestion) throws Exception {
-		System.out.println("新的请求开始了！");
+		System.out.println("分页查询章节");
 		// page.setPage(1);
 		// page.setRows(2);
 		// page.setStart(1);
-
+		page.setParamEntity(chapterQuestion);
 		Page<ChapterQuestion> p = chapterService.selectPage(page);
 		// supplier.setSupName("supName1");
 		/*
@@ -85,7 +85,8 @@ public class ChapterAction extends BaseAction {
 		// page.setPage(1);
 		// page.setRows(2);
 		// page.setStart(1);
-
+		ChapterQuestion chapterQuestion = new ChapterQuestion();
+		page.setParamEntity(chapterQuestion);
 		Page<ChapterQuestion> p = chapterService.selectPage(page);
 		// supplier.setSupName("supName1");
 		/*

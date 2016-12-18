@@ -7,9 +7,8 @@
 
 <script type="text/javascript">
 	$(function() {
-
 		$('#questiontable').datagrid({
-			url : '${proPath}/chapter/selectPageByNum.action',
+			url : '${proPath}/chapter/selectPage.action',
 			fitColumns : true,
 			nowrapL : true,
 			idField : 'chapterId',

@@ -34,10 +34,13 @@
 	<!-- 通过关键字分页查询, 返回数据集 -->
 	<select id="selectPageList" parameterType="page" resultMap="chapterResultMap">
 		select * from t_chapter_question
-		limit
-		#{start},#{rows}
+		limit #{start},#{rows}
 	</select>
 
+	<!-- 通过多条件分页查询，返回总记录数 -->
+	<select id="selectPageCount" parameterType="page" resultType="Integer">
+		select count(1) from t_chapter_question
+	</select>
 
 	<select id="selectChapter" parameterType="java.lang.String"
 		resultMap="chapterResultMap">
@@ -48,9 +51,8 @@
 
 	<!-- 通过多条件分页查询，返回数据集 -->
 	<select id="selectPageListUseDyc" parameterType="page"
-		resultMap="supplierResultMap">
+		resultMap="chapterResultMap">
 		select * from t_chapter_question
-		
 		limit #{start},#{rows}
 	</select>
 
@@ -58,7 +60,6 @@
 	<select id="selectPageCountUseDyc" parameterType="page"
 		resultType="Integer">
 		select count(1) from t_chapter_question
-		
 	</select>
 
 </mapper>
